@@ -1,0 +1,8 @@
+venv/
+media/
+static/
+*.py[c]
+base/core/migrations/*.py
+base/core/migrations/*.py
+!*/migrations/init.py
+db.sqlite3
