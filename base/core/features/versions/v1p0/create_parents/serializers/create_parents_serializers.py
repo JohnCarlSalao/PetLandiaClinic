@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from petlandia.models import Parent
+from core.models import Parent
 
 class CreateParentSerializers(serializers.ModelSerializer):
     class Meta:
