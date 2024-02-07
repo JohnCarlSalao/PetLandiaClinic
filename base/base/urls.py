@@ -22,6 +22,6 @@ from core.features.versions.v1p0.create_pets.views.create_pets_views import Crea
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('create_pets/', CreatePetsViews.as_view(), name ='create_pets_view'),
-    path('create_parents/', CreateParentViews.as_view(), name ='create_pets_view')
+    path('v1p0/create_pets/', CreatePetsViews.as_view(), name ='create_pets_view'),
+    path('v1p0/create_parents/', CreateParentViews.as_view(), name ='create_pets_view')
 ]
