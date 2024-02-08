@@ -56,6 +56,7 @@ class DisplayMedicalRecordsIndivViews(APIView):
             owner = pet.parent_set.first()  # Assuming one pet has only one owner
             if owner:
                 owner_info = {
+                    'owner_id':owner.id, 
                     'owner_first_name': owner.first_name,
                     'owner_last_name': owner.last_name,
                     'owner_contact_number':owner.contact_number

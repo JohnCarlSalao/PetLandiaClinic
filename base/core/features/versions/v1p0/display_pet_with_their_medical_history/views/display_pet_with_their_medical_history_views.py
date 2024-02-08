@@ -27,17 +27,30 @@ class MedicalHistoryByPetIDView(APIView):
         
         # Get the serialized data
         data = serializer.data
+        
+        # Fetch parent(s) associated with the pet
+        parents_info = []
+        for parent in pet_instance.parent_set.all():
+            parent_info = {
+                'parent_id': parent.id,
+                'first_name': parent.first_name,
+                'last_name': parent.last_name,
+                'occupation': parent.occupation,
+                'contact_number': parent.contact_number,
+            }
+            parents_info.append(parent_info)
 
         message = 'medical_history_records'
         errors = {}
-        status = 'ok'
+        status = ok
 
-        # Include the count in the response data
         response_data = {
-            "medical_history_count": medical_history_count,
             "message": message,
-            "data": data,
-            
+            "data": {
+                'owner_info': parents_info,
+                'medical_history_count': medical_history_count,
+                'medical_history_records': data,
+            },
             "status": status,
             "errors": errors
         }
