@@ -1,12 +1,13 @@
 from rest_framework import serializers
-from core.models import Parent, Pets, MedicalHistory
+from core.models import Pets, MedicalHistory
 
 class PetsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pets
-        fields = ['id']
+        fields = ['id', 'name']
 
 class DisplayMedicalHistorySerializer(serializers.ModelSerializer):
+    pet_name = serializers.CharField(source='pet.name', read_only=True)
     pet = serializers.CharField()
 
     class Meta:
