@@ -1,0 +1,65 @@
+from rest_framework.views import APIView
+from core.models import Pets
+from base.utilities.constant import *
+from rest_framework.response import Response
+from ..serializers.display_serializers import DisplayPetSerializer
+from django.http import Http404
+import pytz
+
+
+class DisplayPetViews(APIView):
+    def get(self, request):
+        pets = Pets.objects.all().order_by('-created')
+        serializer = DisplayPetSerializer(pets, many=True)
+        data = serializer.data
+        
+        # Fetch owner information for each pet
+        for pet in data:
+            pet_obj = Pets.objects.get(id=pet['id'])
+            owners_info = []
+            for owner in pet_obj.parent_set.all():
+                owner_info = {
+                    'parent_id' : owner.id,
+                    'first_name': owner.first_name,
+                    'last_name': owner.last_name,
+                    'occupation': owner.occupation,
+                    'contact_number': owner.contact_number,
+                }
+                owners_info.append(owner_info)
+            pet['parents'] = owners_info
+         
+        message = 'Success'
+        status = ok
+        return Response({"message": message, "data": data, "status": status})
+    
+class DisplayPetDetailViews(APIView):
+    def get_pet(self, pk):
+        try: 
+            return Pets.objects.get(pk=pk)
+        except Pets.DoesNotExist:
+            return None
+    def get(self, request, pk):
+        pet = self.get_pet(pk)
+        if pet is None:
+            message = 'Pet does not exist'
+            status = 'not_found'
+            data = {}
+            errors = {}
+            return Response({"message": message, "data": data, "status": status, "errors": errors})
+        parents_info = []
+        for parent in pet.parent_set.all():
+            parent_info = {
+                'parent_id': parent.id,
+                'first_name': parent.first_name,
+                'last_name': parent.last_name,
+                'occupation': parent.occupation,
+                'contact_number': parent.contact_number,
+            }
+            parents_info.append(parent_info)
+        serializer = DisplayPetSerializer(pet)
+        pet_data = serializer.data
+        pet_data['parents'] = parents_info
+        message = 'Success'
+        status = ok
+        errors = {}
+        return Response({"message": message, "data": pet_data, "status": status, "errors": errors})
