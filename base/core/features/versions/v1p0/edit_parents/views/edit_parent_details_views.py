@@ -4,8 +4,11 @@ from core.models import Parent, Pets
 from ..serializers.edit_parent_serializers import EditParentSerializer
 from base.utilities.constant import *
 from django.http import Http404
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 class EditParentViews(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     data = {}
     errors = {}
     status = None

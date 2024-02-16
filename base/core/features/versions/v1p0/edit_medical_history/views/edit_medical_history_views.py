@@ -4,8 +4,11 @@ from core.models import MedicalHistory
 from ..serializers.edit_medical_record_serializers import EditMedicalRecordSerializers
 from base.utilities.constant import *
 from django.http import Http404
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 class EditMedicalRecordViews(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     data = {}
     errors = {}
     status = None
@@ -58,6 +61,7 @@ class EditMedicalRecordViews(APIView):
             data = serializer.data
             data = serializer.data
             status = ok
+            errors = serializer.errors
             return Response({"message": 'Successfully Updated', "data": data, "status": status})
         else:
             status = bad_request

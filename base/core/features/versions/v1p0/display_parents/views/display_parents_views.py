@@ -5,9 +5,13 @@ from rest_framework.response import Response
 from ..serializers.display_serializers import ParentSerializer, DisplayParentSerializer
 from django.http import Http404
 import pytz
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class DisplayParentViews(APIView):
+    
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         parents = Parent.objects.all()
         serializer = ParentSerializer(parents, many=True)
@@ -18,6 +22,8 @@ class DisplayParentViews(APIView):
         status = ok 
         return Response({"message": message, "data": data, "status": status, "errors": errors})
 class DisplayParentDetailViews(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def get_parent(self, pk):
         try: 
             return Parent.objects.get(pk=pk)

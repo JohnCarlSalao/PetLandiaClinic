@@ -4,8 +4,12 @@ from core.models import Pets
 from base.utilities.constant import  *
 from base.utilities.generate_uid import generate_uuid
 from ..serializers.create_pets_serializers import CreatePetsSerializers
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from datetime import datetime
+from rest_framework.permissions import IsAuthenticated
 class CreatePetsViews(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes  = [IsAuthenticated]
     def post (self, request):
         serializers  = CreatePetsSerializers (data= request.data)
        

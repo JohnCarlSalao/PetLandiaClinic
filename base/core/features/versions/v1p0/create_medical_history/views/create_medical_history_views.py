@@ -4,10 +4,13 @@ from core.models import Pets, MedicalHistory, Parent
 from base.utilities.generate_uid import generate_uuid
 from base.utilities.constant import *
 from ..serializers.create_medical_histoy_serializers import CreateMedicalHistorySerializer, PetsSerializer
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 class CreateMedicalHistoryViews(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
     def post(self, request):
         serializers = CreateMedicalHistorySerializer (data = request.data)
         data = {}

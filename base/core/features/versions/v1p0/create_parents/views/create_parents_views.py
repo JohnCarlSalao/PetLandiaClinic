@@ -5,9 +5,10 @@ from base.utilities.constant import *
 from base.utilities.generate_uid import generate_uuid
 from ..serializers.create_parents_serializers import CreateParentSerializers
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 class CreateParentViews(APIView):
     authentication_classes = [JWTAuthentication]
-
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = CreateParentSerializers(data=request.data)
         data = {}

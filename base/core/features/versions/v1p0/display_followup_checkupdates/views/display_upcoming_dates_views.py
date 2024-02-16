@@ -4,8 +4,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from datetime import date
 from ..serializer.display_upcoming_dates_serializers import DisplayMedicalHistorySerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class DisplayUpcomingFollowupCheckUpDatesViews(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         today = date.today()
         upcoming_checkups = MedicalHistory.objects.filter(followup_checkup_date__gte=today).order_by('followup_checkup_date')
