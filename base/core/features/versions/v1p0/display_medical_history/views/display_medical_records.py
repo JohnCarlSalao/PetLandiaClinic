@@ -6,9 +6,12 @@ from ..serializers.display_medical_records_serializers import DisplayMedicalHist
 from django.http import Http404
 import pytz
 from rest_framework.exceptions import NotFound
-
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 class DisplayMedicalRecordsViews(APIView):
+    
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         medical_history = MedicalHistory.objects.all()
         serializer = DisplayMedicalHistorySerializer(medical_history, many=True)

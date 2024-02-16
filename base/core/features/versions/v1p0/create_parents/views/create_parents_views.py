@@ -4,30 +4,83 @@ from core.models import Parent
 from base.utilities.constant import *
 from base.utilities.generate_uid import generate_uuid
 from ..serializers.create_parents_serializers import CreateParentSerializers
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 class CreateParentViews(APIView):
-    def post (self, request):
-
-        serializers =  CreateParentSerializers (data=request.data)
-        data={}
-        errors ={}
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        serializer = CreateParentSerializers(data=request.data)
+        data = {}
+        errors = {}
         status = None
         message = None
 
-        if serializers.is_valid():
+        if serializer.is_valid():
+            first_name = request.data['first_name']
+            last_name = request.data['last_name']
+            occupation = request.data['occupation']
+            contact_number = request.data['contact_number']
+            
+            # Check if a parent with the same contact number already exists
+            existing_number = Parent.objects.filter(contact_number=contact_number).exists()
+            if existing_number:
+                existing_parent_record = Parent.objects.get(contact_number=contact_number)
+                data = {
+                    'id': existing_parent_record.id,
+                    'first_name': existing_parent_record.first_name,
+                    'last_name': existing_parent_record.last_name,
+                    'occupation': existing_parent_record.occupation,
+                    'contact_number': existing_parent_record.contact_number
+                }
+                status = bad_request
+                message = "Record with the provided contact number already exists."
+                return Response({"message": message, "data": data, "status": status})
+            
+            # Check if a parent with the same combination of first name, last name, and occupation already exists
+            existing_parent = Parent.objects.filter(
+                first_name=first_name,
+                last_name=last_name,
+                occupation=occupation
+            ).exists()
+
+            if existing_parent:
+                existing_parent_record = Parent.objects.get(
+                    first_name=first_name,
+                    last_name=last_name,
+                    occupation=occupation
+                )
+                data = {
+                    'id': existing_parent_record.id,
+                    'first_name': existing_parent_record.first_name,
+                    'last_name': existing_parent_record.last_name,
+                    'occupation': existing_parent_record.occupation,
+                    'contact_number': existing_parent_record.contact_number
+                }
+                status = bad_request
+                message = "Record with the provided details already exists."
+                return Response({"message": message, "data": data, "status": status})
+
             uid = generate_uuid()
-            parent = Parent.objects.create(id=uid,
-                                           first_name =request.data ['first_name'],
-                                           last_name =request.data ['last_name'],
-                                           occupation =request.data ['occupation'],
-                                           contact_number= request.data['contact_number'])
-            parent_data= parent
-            parent_data = Parent.objects.filter(id=uid).values('id', 'first_name', 'last_name', 'occupation','contact_number')
+            parent = Parent.objects.create(
+                id=uid,
+                first_name=first_name,
+                last_name=last_name,
+                occupation=occupation,
+                contact_number=contact_number
+            )
+            parent_data = {
+                'id': parent.id,
+                'first_name': parent.first_name,
+                'last_name': parent.last_name,
+                'occupation': parent.occupation,
+                'contact_number': parent.contact_number
+            }
             data = parent_data
-            errors =serializers.errors
             status = created
-            message = 'Successfully Created'
+            message = "Successfully Created"
             return Response({"message": message, "data": data, "status": status, "errors": errors})
         
-        errors = serializers.errors
-        status =bad_request
+        errors = serializer.errors
+        status = bad_request
         return Response({"message": message, "data": data, "status": status, "errors": errors})

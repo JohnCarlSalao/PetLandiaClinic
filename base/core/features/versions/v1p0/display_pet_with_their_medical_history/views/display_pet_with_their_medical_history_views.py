@@ -5,13 +5,11 @@ from ..serializers.display_pet_with_their_medical_history_serializers import Dis
 from base.utilities.constant import *
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-
-
-
-
-
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 class MedicalHistoryByPetIDView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, pet_id):
         # Fetch the pet instance using the provided pet_id
         pet_instance = get_object_or_404(Pets, id=pet_id)

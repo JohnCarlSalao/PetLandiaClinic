@@ -3,11 +3,16 @@ from rest_framework.response import Response
 from core.models import Pets
 from ..serializers.edit_pets_serializers import EditPetsSerializers
 from base.utilities.constant import *
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 from django.http import Http404
 
 class EditPetsDetailsViews(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def get_pet(self, pk):
         try: 
             return Pets.objects.get (pk=pk)

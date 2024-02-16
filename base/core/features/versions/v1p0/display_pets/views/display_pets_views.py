@@ -5,9 +5,13 @@ from rest_framework.response import Response
 from ..serializers.display_serializers import DisplayPetSerializer
 from django.http import Http404
 import pytz
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class DisplayPetViews(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    
     def get(self, request):
         pets = Pets.objects.all().order_by('-created')
         serializer = DisplayPetSerializer(pets, many=True)
@@ -33,6 +37,8 @@ class DisplayPetViews(APIView):
         return Response({"message": message, "data": data, "status": status})
     
 class DisplayPetDetailViews(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
     def get_pet(self, pk):
         try: 
             return Pets.objects.get(pk=pk)
