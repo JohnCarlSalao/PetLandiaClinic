@@ -48,7 +48,7 @@ class DisplayPetDetailViews(APIView):
         pet = self.get_pet(pk)
         if pet is None:
             message = 'Pet does not exist'
-            status = 'not_found'
+            status = not_Found
             data = {}
             errors = {}
             return Response({"message": message, "data": data, "status": status, "errors": errors})
