@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'core',
     'corsheaders',
-
     
 ]
 
@@ -52,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    ''
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'base.urls'
@@ -127,3 +126,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'core.CustomUser'

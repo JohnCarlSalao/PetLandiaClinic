@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 class Pets(models.Model):
     id = models.CharField(max_length=5, primary_key=True)
@@ -26,6 +27,8 @@ class Parent(models.Model):
     occupation = models.CharField(max_length=100)
     contact_number =models.CharField(max_length =11)
     modified = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f"MedicalHistory for {self.first_name}"
     
 class MedicalHistory(models.Model):
     pet = models.ForeignKey(Pets, on_delete=models.CASCADE)
@@ -65,4 +68,13 @@ class MedicalHistory(models.Model):
 
     def __str__(self):
         return f"MedicalHistory for {self.pet_id}"
+    
+class CustomUser(AbstractUser):
+    name = models.CharField(max_length =100)
+    username = models.CharField(max_length =100, unique = True)
+    password = models.CharField(max_length=50)
+    email = models.EmailField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    USERNAME_FIELD = 'username' 
     
