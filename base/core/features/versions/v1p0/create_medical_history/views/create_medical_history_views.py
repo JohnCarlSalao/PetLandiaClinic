@@ -44,15 +44,15 @@ class CreateMedicalHistoryViews(APIView):
                                                           chief_complaint =request.data['chief_complaint'], 
                                                           medication_given_prior_to_check_up=request.data['medication_given_prior_to_check_up'], 
                                                           last_vaccination_given=request.data['last_vaccination_given'],
-                                                          last_vaccination_date=request.data['last_vaccination_date'],
+                                                          last_vaccination_date=serializers.validated_data['last_vaccination_date'],
                                                           last_vaccination_brand=request.data['last_vaccination_brand'], 
                                                           last_deworming_brand = request.data['last_deworming_brand'],
-                                                          last_deworming_date= request.data['last_deworming_date'],
+                                                          last_deworming_date= serializers.validated_data['last_deworming_date'],
                                                           last_deworming_given=request.data['last_deworming_given'], 
                                                           is_transferred_from_other_clinic= request.data['is_transferred_from_other_clinic'], 
                                                           name_of_clinic=request.data['name_of_clinic'], 
                                                           case =request.data['case'], 
-                                                          date_hospitalized=request.data['date_hospitalized'], 
+                                                          date_hospitalized=serializers.validated_data['date_hospitalized'], 
                                                           diet =request.data['diet'], 
                                                           weight=request.data['weight'], 
                                                           initial_temp =request.data['initial_temp'],
@@ -70,10 +70,11 @@ class CreateMedicalHistoryViews(APIView):
                                                           treatment_given =request.data['treatment_given'],
                                                           take_home_meds =request.data['take_home_meds'],
                                                           recommendations =request.data['recommendations'],
-                                                          followup_checkup_date= request.data['followup_checkup_date']
+                                                          followup_checkup_date=serializers.validated_data['followup_checkup_date']
                                                           )
             
             medical_history_data = {
+            'history_id':medical_history.history_id,
             'pet': PetsSerializer(pet_instance).data,
             'pet_name': pet_instance.name,
             'chief_complaint': medical_history.chief_complaint,
@@ -108,7 +109,7 @@ class CreateMedicalHistoryViews(APIView):
             'followup_checkup_date': medical_history.followup_checkup_date,
             
         }
-            data = {'Medical_history': medical_history_data}
+            data =  medical_history_data
             errors = serializers.errors
             status = created 
             message = 'Succesfully Created'

@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from core.models import Parent, Pets, MedicalHistory
+from base.utilities.formatter import CustomDateFormatField
+from base.utilities.helpers import validate_past, validate_future
+
 
 class PetsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,7 +11,10 @@ class PetsSerializer(serializers.ModelSerializer):
 
 class CreateMedicalHistorySerializer(serializers.ModelSerializer):
     pet = serializers.CharField()
-
+    last_vaccination_date = CustomDateFormatField(validators =[validate_past])
+    last_deworming_date = CustomDateFormatField(validators =[validate_past])
+    date_hospitalized = CustomDateFormatField(validators =[validate_past])
+    followup_checkup_date = CustomDateFormatField(validators =[validate_future])
     class Meta:
         model = MedicalHistory
         fields = [

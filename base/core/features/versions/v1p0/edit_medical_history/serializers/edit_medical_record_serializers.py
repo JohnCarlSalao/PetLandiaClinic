@@ -1,7 +1,13 @@
 from rest_framework import serializers
 from core.models import MedicalHistory
-
+from base.utilities.formatter import CustomDateFormatField
+from base.utilities.helpers import validate_future, validate_past
 class EditMedicalRecordSerializers(serializers.ModelSerializer):
+    last_vaccination_date = CustomDateFormatField(validators =[validate_past])
+    last_deworming_date = CustomDateFormatField(validators =[validate_past])
+    date_hospitalized = CustomDateFormatField(validators =[validate_past])
+    followup_checkup_date = CustomDateFormatField(validators =[validate_future])
+
     class Meta:
         model =MedicalHistory
         fields = ['chief_complaint', 'medication_given_prior_to_check_up',

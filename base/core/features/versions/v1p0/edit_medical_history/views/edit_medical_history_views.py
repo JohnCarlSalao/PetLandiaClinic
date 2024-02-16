@@ -56,7 +56,7 @@ class EditMedicalRecordViews(APIView):
         if serializer.is_valid():
             serializer.save()
             data = serializer.data
-            data = {'medical_record': serializer.data}
+            data = serializer.data
             status = ok
             return Response({"message": 'Successfully Updated', "data": data, "status": status})
         else:

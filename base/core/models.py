@@ -38,7 +38,7 @@ class MedicalHistory(models.Model):
     last_deworming_given = models.CharField(max_length=100)
     last_deworming_date = models.DateField()
     last_deworming_brand = models.CharField(max_length=100)
-    is_transferred_from_other_clinic = models.BooleanField()
+    is_transferred_from_other_clinic = models.BooleanField(default= False)
     name_of_clinic = models.CharField(max_length=100, blank=True, null=True)
     case = models.TextField()
     date_hospitalized = models.DateField()

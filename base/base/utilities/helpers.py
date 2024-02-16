@@ -9,3 +9,13 @@ def validate_birthday(value):
     if value > today:
         raise ValidationError("Birthday cannot be in the future.")
     return value
+
+def validate_past(value):
+    today = timezone.localdate()
+    if value > today:
+        raise ValidationError("Date Can't be in the future")
+    
+def validate_future(value):
+    today = timezone.localdate()
+    if value < today:
+        raise ValidationError("Date Can't be in the past")
