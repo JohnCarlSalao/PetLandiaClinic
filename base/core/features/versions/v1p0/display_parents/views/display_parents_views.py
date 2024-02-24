@@ -7,11 +7,17 @@ from django.http import Http404
 import pytz
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from drf_spectacular.utils import extend_schema
 class DisplayParentViews(APIView):
     
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    @extend_schema(request = ParentSerializer,
+                   responses={ok: ParentSerializer},
+                   description = 'To Display parents',
+                   summary = 'Display Parents.'
+            
+    )
     def get(self, request):
         parents = Parent.objects.all()
         serializer = ParentSerializer(parents, many=True)
@@ -21,15 +27,25 @@ class DisplayParentViews(APIView):
         errors = {}
         status = ok 
         return Response({"message": message, "data": data, "status": status, "errors": errors})
+    
 class DisplayParentDetailViews(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+   
+    
     def get_parent(self, pk):
         try: 
             return Parent.objects.get(pk=pk)
         except Parent.DoesNotExist:
             raise Http404
+    @extend_schema(request = ParentSerializer,
+                   responses={ok: ParentSerializer},
+                   description = 'To Display parent details',
+                   summary = 'Display Parents via id.'
+            
+    )
     def get(self, request, pk):
+        
         
         parent = self.get_parent(pk)
         serializer = ParentSerializer(parent)

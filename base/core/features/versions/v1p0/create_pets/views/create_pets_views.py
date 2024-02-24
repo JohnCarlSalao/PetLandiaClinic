@@ -7,9 +7,33 @@ from ..serializers.create_pets_serializers import CreatePetsSerializers
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from datetime import datetime
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema, OpenApiResponse, OpenApiExample, inline_serializer
+from drf_spectacular.types import OpenApiTypes
 class CreatePetsViews(APIView):
+    
     authentication_classes = [JWTAuthentication]
     permission_classes  = [IsAuthenticated]
+    @extend_schema(examples=[OpenApiExample(
+            name='Create Pet Example',
+            value={
+                'name': 'Meong',
+                'species': 'Bulldog',
+                'breed': 'doberman',
+                'color_or_markings': 'itim',
+                'sex':'M',
+                'birthday': '2023/07/04'
+,       }
+,
+        )],
+            request = CreatePetsSerializers,
+                   responses={ok: OpenApiResponse(response={CreatePetsSerializers}, description= 'Succesfully Created')},
+                   description = 'To Create Pets.',
+                   summary = 'Create Pets.'
+                
+    
+    )
+    
+    
     def post (self, request):
         serializers  = CreatePetsSerializers (data= request.data)
        

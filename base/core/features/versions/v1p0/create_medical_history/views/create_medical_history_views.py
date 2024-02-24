@@ -6,11 +6,58 @@ from base.utilities.constant import *
 from ..serializers.create_medical_histoy_serializers import CreateMedicalHistorySerializer, PetsSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema, OpenApiExample
 
 
 class CreateMedicalHistoryViews(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
+    @extend_schema(request = CreateMedicalHistorySerializer,
+                   responses={ok: CreateMedicalHistorySerializer},
+                   description = 'To Create Medical History',
+                   summary = 'Create medical history.', 
+                   examples=[OpenApiExample(
+            name='Create Medical History',
+            value={
+  "pet": "<pet_id>",
+  "chief_complaint": "Nabarel sa paa",
+  "medication_given_prior_to_check_up": "Antibiotics",
+  "last_vaccination_given": "Anti-rabies",
+  "last_vaccination_date": "2023-12-15",
+  "last_vaccination_brand": "Pfizer",
+  "last_deworming_brand": "DewormerX",
+  "last_deworming_date": "2024-01-30",
+  "last_deworming_given": "Tablet",
+  "is_transferred_from_other_clinic": True,
+  "name_of_clinic": "VetCare Clinic",
+  "case": "Dog presented with limping on hind leg after running in the park.",
+  "date_hospitalized": "2024-02-24",
+  "diet": "High protein diet",
+  "weight": 18,
+  "initial_temp": 39.2,
+  "heart_rate": "90 bpm",
+  "respiratory_rate": "20 breaths per minute",
+  "abnormal_findings": "Mild swelling on the affected paw",
+  "is_cbc": True,
+  "is_skin_scrape": True,
+  "is_xray": True,
+  "is_dfs": True,
+  "is_urinalysis": True,
+  "is_vaginal_smear": False,
+  "tentative_diagnosis": "Soft tissue injury",
+  "prognosis": "Good with proper rest and medication",
+  "treatment_given": "Painkillers, anti-inflammatory drugs, and rest advised.",
+  "take_home_meds": "Painkillers (Dosage: Twice daily after meals), Anti-inflammatory (Dosage: Once daily after meals)",
+  "recommendations": "Strict rest for 1 week, avoid strenuous activity.",
+  "followup_checkup_date": "2024-03-10"
+}
+
+,
+        )],
+                   
+                
+    
+    )
     def post(self, request):
         serializers = CreateMedicalHistorySerializer (data = request.data)
         data = {}

@@ -31,26 +31,40 @@ from core.features.versions.v1p0.edit_medical_history.views.edit_medical_history
 from core.features.versions.v1p0.display_pet_with_their_medical_history.views.display_pet_with_their_medical_history_views import MedicalHistoryByPetIDView
 from core.features.versions.v1p0.display_followup_checkupdates.views.display_upcoming_dates_views import DisplayUpcomingFollowupCheckUpDatesViews
 from core.features.versions.v1p0.login.views.login_views import LoginView
+from core.features.versions.v1p0.landing_page.views.landing_page_views import LandingPageView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+
+
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('v1p0/create_pets/', CreatePetsViews.as_view(), name ='create_pets_view'),
     path('v1p0/create_parents/', CreateParentViews.as_view(), name ='create_pets_view'),
     path('v1p0/display_parent/', DisplayParentViews.as_view(), name = 'display_parent'),
-    path ('v1p0/display_parent/<pk>/', DisplayParentDetailViews.as_view(), name = 'display_parent_by_id'),
-    path ('v1p0/display_pet/<pk>/', DisplayPetDetailViews.as_view(), name = 'display_pet_by_id'),
+    path ('v1p0/display_parent/<str:pk>/', DisplayParentDetailViews.as_view(), name = 'display_parent_by_id'),
+    path ('v1p0/display_pet/<str:pk>/', DisplayPetDetailViews.as_view(), name = 'display_pet_by_id'),
     path ('v1p0/display_pet/', DisplayPetViews.as_view(), name = 'display_pet'),
-    path ('v1p0/edit_parent/<pk>/', EditParentViews.as_view(), name = 'edit_parent_view'),
-    path ('v1p0/edit_pet/<pk>/',EditPetsDetailsViews.as_view(), name = 'edit_pets_view'),
-    path ('v1p0/delete_parent/<pk>/', DeleteParentsViews.as_view(), name = 'delete_parent_view'),
-    path ('v1p0/delete_pet/<pk>/',DeletePetsViews.as_view(), name = 'delete_pets_view'),
+    path ('v1p0/edit_parent/<str:pk>/', EditParentViews.as_view(), name = 'edit_parent_view'),
+    path ('v1p0/edit_pet/<str:pk>/',EditPetsDetailsViews.as_view(), name = 'edit_pets_view'),
+    path ('v1p0/delete_parent/<str:pk>/', DeleteParentsViews.as_view(), name = 'delete_parent_view'),
+    path ('v1p0/delete_pet/<str:pk>/',DeletePetsViews.as_view(), name = 'delete_pets_view'),
     path ('v1p0/create_medical_history/', CreateMedicalHistoryViews.as_view(), name = 'create_medical_history_views'),
     path ('v1p0/display_medical_history/', DisplayMedicalRecordsViews.as_view(), name = 'display_medical_history'),
-    path ('v1p0/display_medical_history/<pk>/', DisplayMedicalRecordsIndivViews.as_view(),  name = 'display_medical_history_indiv'),
-    path ('v1p0/delete_medical_history/<pk>/', DeleteMedicalRecordsViews.as_view(),  name = 'display_medical_history_indiv'),
-    path ('v1p0/edit_medical_history/<pk>/', EditMedicalRecordViews.as_view(),  name = 'edit_medical_history_indiv'),
-    path ('v1p0/display_medical_history/pet/<pet_id>/', MedicalHistoryByPetIDView.as_view(),  name = 'display_medical_history_pet'),
+    path ('v1p0/display_medical_history/<str:pk>/', DisplayMedicalRecordsIndivViews.as_view(),  name = 'display_medical_history_indiv'),
+    path ('v1p0/delete_medical_history/<str:pk>/', DeleteMedicalRecordsViews.as_view(),  name = 'display_medical_history_indiv'),
+    path ('v1p0/edit_medical_history/<str:pk>/', EditMedicalRecordViews.as_view(),  name = 'edit_medical_history_indiv'),
+    path ('v1p0/display_medical_history/pet/<str:pet_id>/', MedicalHistoryByPetIDView.as_view(),  name = 'display_medical_history_pet'),
     path ('v1p0/display/upcoming_checkups/', DisplayUpcomingFollowupCheckUpDatesViews.as_view(), name = 'display_upcoming_checkups'),
-    path ('v1p0/login/',LoginView.as_view(), name ='login' )
+    path ('v1p0/login/',LoginView.as_view(), name ='login' ),
+    path ('v1p0/landingpage/', LandingPageView.as_view(), name = 'landing_page'),
+    path("schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("docs/",SpectacularSwaggerView.as_view(template_name="swagger-ui.html", url_name="schema"),name="swagger-ui"),
+    path('redocs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+   
+    
+    
 ]
 
 

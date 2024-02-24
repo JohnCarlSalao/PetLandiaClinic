@@ -6,21 +6,64 @@ from base.utilities.constant import *
 from django.http import Http404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 class EditMedicalRecordViews(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    data = {}
-    errors = {}
-    status = None
-    message = None
+    
+    
+    
 
     def get_parent(self, pk):
         try:
             return MedicalHistory.objects.get(pk=pk)
         except MedicalHistory.DoesNotExist:
             raise Http404
-
+    @extend_schema(request = EditMedicalRecordSerializers,
+                   responses={ok: EditMedicalRecordSerializers},
+                   description = 'To edit medical history.',
+                   summary = 'Editing medical history via id.',
+                   examples=[OpenApiExample(
+            name='Create Medical History',
+            value={
+  "pet": "987654",
+  "chief_complaint": "Nabarel sa paa",
+  "medication_given_prior_to_check_up": "None",
+  "last_vaccination_given": "Canine distemper",
+  "last_vaccination_date": "2023-11-20",
+  "last_vaccination_brand": "Merck",
+  "last_deworming_brand": "WormGuard",
+  "last_deworming_date": "2024-01-15",
+  "last_deworming_given": "Liquid",
+  "is_transferred_from_other_clinic": False,
+  "name_of_clinic": "",
+  "case": "Cat found with a slight limp on one hind leg.",
+  "date_hospitalized": "2024-02-24",
+  "diet": "Regular cat food",
+  "weight": 6.5,
+  "initial_temp": 38.7,
+  "heart_rate": "100 bpm",
+  "respiratory_rate": "24 breaths per minute",
+  "abnormal_findings": "Tenderness on palpation of the affected limb",
+  "is_cbc": False,
+  "is_skin_scrape": True,
+  "is_xray": False,
+  "is_dfs": False,
+  "is_urinalysis": True,
+  "is_vaginal_smear": False,
+  "tentative_diagnosis": "Muscle strain",
+  "prognosis": "Excellent with rest and observation",
+  "treatment_given": "Rest advised, no medication prescribed.",
+  "take_home_meds": "",
+  "recommendations": "Monitor for any worsening of symptoms.",
+   "followup_checkup_date": "2024-03-03"
+}
+)],)
     def put(self, request, pk):
+        data = {}
+        errors = {}
+        status = None
+        message = None
         medical_history = self.get_parent(pk)
         data = request.data.copy()
         data.setdefault('chief_complaint', medical_history.chief_complaint)

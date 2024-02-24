@@ -6,21 +6,39 @@ from base.utilities.constant import *
 from django.http import Http404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 class EditParentViews(APIView):
+    
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    data = {}
-    errors = {}
-    status = None
-    message = None
+    
+    
 
     def get_parent(self, pk):
         try:
             return Parent.objects.get(pk=pk)
         except Parent.DoesNotExist:
             raise Http404
-
+    @extend_schema(request = EditParentSerializer,
+                   
+                   responses={ok: EditParentSerializer},
+                   description = 'To Edit Parents.',
+                   summary = 'Editing Parents via id.',
+                   examples=[OpenApiExample(
+            name='Edit Parentt Example',
+            value={
+                'first_name': 'Joshua',
+                'last_name': 'Penny',
+                'contact_number': '096788888',
+                'occupation':'M',
+      })]
+            
+    )
     def put(self, request, pk):
+        data = {}
+        errors = {}
+        status = None
+        message = None
         parent = self.get_parent(pk)
         data = request.data.copy()
 

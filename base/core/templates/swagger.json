@@ -1,0 +1,1928 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "",
+      "version": "0.0.0"
+    },
+    "paths": {
+      "/schema/": {
+        "get": {
+          "operationId": "schema_retrieve",
+          "description": "OpenApi3 schema for this API. Format can be selected via content negotiation.\n\n- YAML: application/vnd.oai.openapi\n- JSON: application/vnd.oai.openapi+json",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "format",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "json",
+                  "yaml"
+                ]
+              }
+            },
+            {
+              "in": "query",
+              "name": "lang",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "af",
+                  "ar",
+                  "ar-dz",
+                  "ast",
+                  "az",
+                  "be",
+                  "bg",
+                  "bn",
+                  "br",
+                  "bs",
+                  "ca",
+                  "ckb",
+                  "cs",
+                  "cy",
+                  "da",
+                  "de",
+                  "dsb",
+                  "el",
+                  "en",
+                  "en-au",
+                  "en-gb",
+                  "eo",
+                  "es",
+                  "es-ar",
+                  "es-co",
+                  "es-mx",
+                  "es-ni",
+                  "es-ve",
+                  "et",
+                  "eu",
+                  "fa",
+                  "fi",
+                  "fr",
+                  "fy",
+                  "ga",
+                  "gd",
+                  "gl",
+                  "he",
+                  "hi",
+                  "hr",
+                  "hsb",
+                  "hu",
+                  "hy",
+                  "ia",
+                  "id",
+                  "ig",
+                  "io",
+                  "is",
+                  "it",
+                  "ja",
+                  "ka",
+                  "kab",
+                  "kk",
+                  "km",
+                  "kn",
+                  "ko",
+                  "ky",
+                  "lb",
+                  "lt",
+                  "lv",
+                  "mk",
+                  "ml",
+                  "mn",
+                  "mr",
+                  "ms",
+                  "my",
+                  "nb",
+                  "ne",
+                  "nl",
+                  "nn",
+                  "os",
+                  "pa",
+                  "pl",
+                  "pt",
+                  "pt-br",
+                  "ro",
+                  "ru",
+                  "sk",
+                  "sl",
+                  "sq",
+                  "sr",
+                  "sr-latn",
+                  "sv",
+                  "sw",
+                  "ta",
+                  "te",
+                  "tg",
+                  "th",
+                  "tk",
+                  "tr",
+                  "tt",
+                  "udm",
+                  "ug",
+                  "uk",
+                  "ur",
+                  "uz",
+                  "vi",
+                  "zh-hans",
+                  "zh-hant"
+                ]
+              }
+            }
+          ],
+          "tags": [
+            "schema"
+          ],
+          "security": [
+            {
+              "cookieAuth": [
+  
+              ]
+            },
+            {
+              "basicAuth": [
+  
+              ]
+            },
+            {
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/vnd.oai.openapi": {
+                  "schema": {
+                    "type": "object",
+                    "additionalProperties": {
+                    }
+                  }
+                },
+                "application/yaml": {
+                  "schema": {
+                    "type": "object",
+                    "additionalProperties": {
+                    }
+                  }
+                },
+                "application/vnd.oai.openapi+json": {
+                  "schema": {
+                    "type": "object",
+                    "additionalProperties": {
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "additionalProperties": {
+                    }
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/create_medical_history/": {
+        "post": {
+          "operationId": "v1p0_create_medical_history_create",
+          "description": "To Create Medical History",
+          "summary": "Create medical history.",
+          "tags": [
+            "v1p0"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMedicalHistory"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMedicalHistory"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMedicalHistory"
+                }
+              }
+            },
+            "required": true
+          },
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateMedicalHistory"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/create_parents/": {
+        "post": {
+          "summary": "Create a new parent record.",
+          "description": "This endpoint creates a new parent record in the system.",
+          "tags": [
+            "v1p0"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateParentSerializer"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Parent record created successfully.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateParentSerializer"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "description": "Error message explaining the reason for the bad request."
+                      },
+                      "errors": {
+                        "type": "object",
+                        "description": "A dictionary containing specific field-level validation errors."
+                      },
+                      "data": {
+                        "type": "object",
+                        "description": "(Optional) Existing parent data if a duplicate record is found."
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "Response status code (e.g., \"bad_request\", \"created\")."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "detail": {
+                        "type": "string",
+                        "description": "Reason for the authentication failure."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "detail": {
+                        "type": "string",
+                        "description": "Reason for the permission denied error."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1p0/create_pets/": {
+        "post": {
+          "operationId": "v1p0_create_pets_create",
+          "description": "To Create Pets.",
+          "summary": "Create Pets.",
+          "tags": [
+            "v1p0"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePetsSerializers"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePetsSerializers"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePetsSerializers"
+                }
+              }
+            },
+            "required": true
+          },
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreatePetsSerializers"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/delete_medical_history/{id}/": {
+        "delete": {
+          "operationId": "v1p0_delete_medical_history_destroy",
+          "description": "To delete medicalhistory of the pet",
+          "summary": "Deleting Medical History.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          }
+        }
+      },
+      "/v1p0/delete_parent/{id}/": {
+        "delete": {
+          "operationId": "v1p0_delete_parent_destroy",
+          "description": "To delete parents",
+          "summary": "Delete Parents.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "cookieAuth": [
+  
+              ]
+            },
+            {
+              "basicAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          }
+        }
+      },
+      "/v1p0/delete_pet/{id}/": {
+        "delete": {
+          "operationId": "v1p0_delete_pet_destroy",
+          "description": "To delete pets",
+          "summary": "Delete Pets.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          }
+        }
+      },
+      "/v1p0/display/upcoming_checkups/": {
+        "get": {
+          "operationId": "v1p0_display_upcoming_checkups_retrieve",
+          "description": "To Display upcoming dates of followup checkup dates of pet.",
+          "summary": "Display Upcoming Checkups",
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "No response body"
+            }
+          }
+        }
+      },
+      "/v1p0/display_medical_history/": {
+        "get": {
+          "operationId": "v1p0_display_medical_history_retrieve",
+          "description": "To Display medical records of the pet.",
+          "summary": "Display medical records.",
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DisplayMedicalHistory"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/display_medical_history/{id}/": {
+        "get": {
+          "operationId": "v1p0_display_medical_history_retrieve_2",
+          "description": "To Display medical records of the pet individually.",
+          "summary": "Display medical records via ID.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "cookieAuth": [
+  
+              ]
+            },
+            {
+              "basicAuth": [
+  
+              ]
+            },
+            {
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DisplayMedicalHistory"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/display_medical_history/pet/{pet_id}/": {
+        "get": {
+          "operationId": "v1p0_display_medical_history_pet_retrieve",
+          "description": "To Display medicalhistory of the pet",
+          "summary": "Display Pets with their medical history via id.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "pet_id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DisplayMedicalHistoryPet"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/display_parent/": {
+        "get": {
+          "operationId": "v1p0_display_parent_retrieve",
+          "description": "To Display parents",
+          "summary": "Display Parents.",
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Parent"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/display_parent/{id}/": {
+        "get": {
+          "operationId": "v1p0_display_parent_retrieve_2",
+          "description": "To Display parent details",
+          "summary": "Display Parents via id.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Parent"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/display_pet/": {
+        "get": {
+          "operationId": "v1p0_display_pet_retrieve",
+          "description": "To Display pets with owner",
+          "summary": "Display all Pets.",
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DisplayPet"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/display_pet/{id}/": {
+        "get": {
+          "operationId": "v1p0_display_pet_retrieve_2",
+          "description": "To Display pets details",
+          "summary": "Display Pets via id.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DisplayPet"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/edit_medical_history/{id}/": {
+        "put": {
+          "operationId": "v1p0_edit_medical_history_update",
+          "description": "To edit medical history.",
+          "summary": "Editing medical history via id.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditMedicalRecordSerializers"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditMedicalRecordSerializers"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditMedicalRecordSerializers"
+                }
+              }
+            },
+            "required": true
+          },
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EditMedicalRecordSerializers"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/edit_parent/{id}/": {
+        "put": {
+          "operationId": "v1p0_edit_parent_update",
+          "description": "To Edit Parents.",
+          "summary": "Editing Parents via id.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditParent"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditParent"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditParent"
+                }
+              }
+            },
+            "required": true
+          },
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EditParent"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/edit_pet/{id}/": {
+        "put": {
+          "operationId": "v1p0_edit_pet_update",
+          "description": "To Edit Pets.",
+          "summary": "Editing Pets via id.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true
+            }
+          ],
+          "tags": [
+            "v1p0"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditPetsSerializers"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditPetsSerializers"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditPetsSerializers"
+                }
+              }
+            },
+            "required": true
+          },
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EditPetsSerializers"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      },
+      "/v1p0/landingpage/": {
+        "get": {
+          "operationId": "v1p0_landingpage_retrieve",
+          "description": "To get the count on Dashboard/ Landing Page.",
+          "tags": [
+            "v1p0"
+          ],
+          "security": [
+            {
+              "jwtAuth": [
+  
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "No response body"
+            }
+          }
+        }
+      },
+      "/v1p0/login/": {
+        "post": {
+          "operationId": "v1p0_login_create",
+          "description": "To Login or Obtain Authorization Key",
+          "tags": [
+            "v1p0"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenObtainPair"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenObtainPair"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenObtainPair"
+                }
+              }
+            },
+            "required": true
+          },
+          "security": [
+            {
+              "cookieAuth": [
+  
+              ]
+            },
+            {
+              "basicAuth": [
+  
+              ]
+            },
+            {
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "No response body"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "CreateMedicalHistory": {
+          "type": "object",
+          "properties": {
+            "pet": {
+              "type": "string"
+            },
+            "chief_complaint": {
+              "type": "string"
+            },
+            "medication_given_prior_to_check_up": {
+              "type": "string"
+            },
+            "last_vaccination_given": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_vaccination_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "last_vaccination_brand": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_deworming_brand": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_deworming_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "last_deworming_given": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "is_transferred_from_other_clinic": {
+              "type": "boolean"
+            },
+            "name_of_clinic": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "case": {
+              "type": "string"
+            },
+            "date_hospitalized": {
+              "type": "string",
+              "format": "date"
+            },
+            "diet": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number",
+              "format": "double"
+            },
+            "initial_temp": {
+              "type": "number",
+              "format": "double"
+            },
+            "heart_rate": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "respiratory_rate": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "abnormal_findings": {
+              "type": "string"
+            },
+            "is_cbc": {
+              "type": "boolean"
+            },
+            "is_skin_scrape": {
+              "type": "boolean"
+            },
+            "is_xray": {
+              "type": "boolean"
+            },
+            "is_dfs": {
+              "type": "boolean"
+            },
+            "is_urinalysis": {
+              "type": "boolean"
+            },
+            "is_vaginal_smear": {
+              "type": "boolean"
+            },
+            "tentative_diagnosis": {
+              "type": "string"
+            },
+            "prognosis": {
+              "type": "string"
+            },
+            "treatment_given": {
+              "type": "string"
+            },
+            "take_home_meds": {
+              "type": "string"
+            },
+            "recommendations": {
+              "type": "string"
+            },
+            "followup_checkup_date": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "abnormal_findings",
+            "case",
+            "chief_complaint",
+            "date_hospitalized",
+            "diet",
+            "followup_checkup_date",
+            "heart_rate",
+            "initial_temp",
+            "is_cbc",
+            "is_dfs",
+            "is_skin_scrape",
+            "is_urinalysis",
+            "is_vaginal_smear",
+            "is_xray",
+            "last_deworming_brand",
+            "last_deworming_date",
+            "last_deworming_given",
+            "last_vaccination_brand",
+            "last_vaccination_date",
+            "last_vaccination_given",
+            "medication_given_prior_to_check_up",
+            "pet",
+            "prognosis",
+            "recommendations",
+            "respiratory_rate",
+            "take_home_meds",
+            "tentative_diagnosis",
+            "treatment_given",
+            "weight"
+          ]
+        },
+        "CreateParentSerializers": {
+          "type": "object",
+          "properties": {
+            "first_name": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "last_name": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "occupation": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "contact_number": {
+              "type": "string",
+              "maxLength": 11
+            }
+          },
+          "required": [
+            "contact_number",
+            "occupation"
+          ]
+        },
+        "CreatePetsSerializers": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "species": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "breed": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "color_or_markings": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "birthday": {
+              "type": "string",
+              "format": "date"
+            },
+            "sex": {
+              "$ref": "#/components/schemas/SexEnum"
+            }
+          },
+          "required": [
+            "birthday",
+            "breed",
+            "color_or_markings",
+            "name",
+            "sex",
+            "species"
+          ]
+        },
+        "DisplayMedicalHistory": {
+          "type": "object",
+          "properties": {
+            "history_id": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "pet": {
+              "$ref": "#/components/schemas/Pets"
+            },
+            "chief_complaint": {
+              "type": "string"
+            },
+            "medication_given_prior_to_check_up": {
+              "type": "string"
+            },
+            "last_vaccination_given": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_vaccination_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "last_vaccination_brand": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_deworming_brand": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_deworming_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "last_deworming_given": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "is_transferred_from_other_clinic": {
+              "type": "boolean"
+            },
+            "name_of_clinic": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "case": {
+              "type": "string"
+            },
+            "date_hospitalized": {
+              "type": "string",
+              "format": "date"
+            },
+            "diet": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number",
+              "format": "double"
+            },
+            "initial_temp": {
+              "type": "number",
+              "format": "double"
+            },
+            "heart_rate": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "respiratory_rate": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "abnormal_findings": {
+              "type": "string"
+            },
+            "is_cbc": {
+              "type": "boolean"
+            },
+            "is_skin_scrape": {
+              "type": "boolean"
+            },
+            "is_xray": {
+              "type": "boolean"
+            },
+            "is_dfs": {
+              "type": "boolean"
+            },
+            "is_urinalysis": {
+              "type": "boolean"
+            },
+            "is_vaginal_smear": {
+              "type": "boolean"
+            },
+            "tentative_diagnosis": {
+              "type": "string"
+            },
+            "prognosis": {
+              "type": "string"
+            },
+            "treatment_given": {
+              "type": "string"
+            },
+            "take_home_meds": {
+              "type": "string"
+            },
+            "recommendations": {
+              "type": "string"
+            },
+            "followup_checkup_date": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "abnormal_findings",
+            "case",
+            "chief_complaint",
+            "date_hospitalized",
+            "diet",
+            "followup_checkup_date",
+            "heart_rate",
+            "history_id",
+            "initial_temp",
+            "is_cbc",
+            "is_dfs",
+            "is_skin_scrape",
+            "is_urinalysis",
+            "is_vaginal_smear",
+            "is_xray",
+            "last_deworming_brand",
+            "last_deworming_date",
+            "last_deworming_given",
+            "last_vaccination_brand",
+            "last_vaccination_date",
+            "last_vaccination_given",
+            "medication_given_prior_to_check_up",
+            "pet",
+            "prognosis",
+            "recommendations",
+            "respiratory_rate",
+            "take_home_meds",
+            "tentative_diagnosis",
+            "treatment_given",
+            "weight"
+          ]
+        },
+        "DisplayMedicalHistoryPet": {
+          "type": "object",
+          "properties": {
+            "history_id": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "pet": {
+              "$ref": "#/components/schemas/Pets"
+            },
+            "chief_complaint": {
+              "type": "string"
+            },
+            "medication_given_prior_to_check_up": {
+              "type": "string"
+            },
+            "last_vaccination_given": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_vaccination_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "last_vaccination_brand": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_deworming_brand": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_deworming_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "last_deworming_given": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "is_transferred_from_other_clinic": {
+              "type": "boolean"
+            },
+            "name_of_clinic": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "case": {
+              "type": "string"
+            },
+            "date_hospitalized": {
+              "type": "string",
+              "format": "date"
+            },
+            "diet": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number",
+              "format": "double"
+            },
+            "initial_temp": {
+              "type": "number",
+              "format": "double"
+            },
+            "heart_rate": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "respiratory_rate": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "abnormal_findings": {
+              "type": "string"
+            },
+            "is_cbc": {
+              "type": "boolean"
+            },
+            "is_skin_scrape": {
+              "type": "boolean"
+            },
+            "is_xray": {
+              "type": "boolean"
+            },
+            "is_dfs": {
+              "type": "boolean"
+            },
+            "is_urinalysis": {
+              "type": "boolean"
+            },
+            "is_vaginal_smear": {
+              "type": "boolean"
+            },
+            "tentative_diagnosis": {
+              "type": "string"
+            },
+            "prognosis": {
+              "type": "string"
+            },
+            "treatment_given": {
+              "type": "string"
+            },
+            "take_home_meds": {
+              "type": "string"
+            },
+            "recommendations": {
+              "type": "string"
+            },
+            "followup_checkup_date": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "abnormal_findings",
+            "case",
+            "chief_complaint",
+            "date_hospitalized",
+            "diet",
+            "followup_checkup_date",
+            "heart_rate",
+            "history_id",
+            "initial_temp",
+            "is_cbc",
+            "is_dfs",
+            "is_skin_scrape",
+            "is_urinalysis",
+            "is_vaginal_smear",
+            "is_xray",
+            "last_deworming_brand",
+            "last_deworming_date",
+            "last_deworming_given",
+            "last_vaccination_brand",
+            "last_vaccination_date",
+            "last_vaccination_given",
+            "medication_given_prior_to_check_up",
+            "pet",
+            "prognosis",
+            "recommendations",
+            "respiratory_rate",
+            "take_home_meds",
+            "tentative_diagnosis",
+            "treatment_given",
+            "weight"
+          ]
+        },
+        "DisplayPet": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 5
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "species": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "breed": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "color_or_markings": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "birthday": {
+              "type": "string",
+              "format": "date"
+            },
+            "sex": {
+              "$ref": "#/components/schemas/SexEnum"
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "birthday",
+            "breed",
+            "color_or_markings",
+            "created",
+            "id",
+            "name",
+            "sex",
+            "species"
+          ]
+        },
+        "EditMedicalRecordSerializers": {
+          "type": "object",
+          "properties": {
+            "chief_complaint": {
+              "type": "string"
+            },
+            "medication_given_prior_to_check_up": {
+              "type": "string"
+            },
+            "last_vaccination_given": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_vaccination_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "last_vaccination_brand": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_deworming_brand": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "last_deworming_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "last_deworming_given": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "is_transferred_from_other_clinic": {
+              "type": "boolean"
+            },
+            "name_of_clinic": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "case": {
+              "type": "string"
+            },
+            "date_hospitalized": {
+              "type": "string",
+              "format": "date"
+            },
+            "diet": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number",
+              "format": "double"
+            },
+            "initial_temp": {
+              "type": "number",
+              "format": "double"
+            },
+            "heart_rate": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "respiratory_rate": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "abnormal_findings": {
+              "type": "string"
+            },
+            "is_cbc": {
+              "type": "boolean"
+            },
+            "is_skin_scrape": {
+              "type": "boolean"
+            },
+            "is_xray": {
+              "type": "boolean"
+            },
+            "is_dfs": {
+              "type": "boolean"
+            },
+            "is_urinalysis": {
+              "type": "boolean"
+            },
+            "is_vaginal_smear": {
+              "type": "boolean"
+            },
+            "tentative_diagnosis": {
+              "type": "string"
+            },
+            "prognosis": {
+              "type": "string"
+            },
+            "treatment_given": {
+              "type": "string"
+            },
+            "take_home_meds": {
+              "type": "string"
+            },
+            "recommendations": {
+              "type": "string"
+            },
+            "followup_checkup_date": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "abnormal_findings",
+            "case",
+            "chief_complaint",
+            "date_hospitalized",
+            "diet",
+            "followup_checkup_date",
+            "heart_rate",
+            "initial_temp",
+            "is_cbc",
+            "is_dfs",
+            "is_skin_scrape",
+            "is_urinalysis",
+            "is_vaginal_smear",
+            "is_xray",
+            "last_deworming_brand",
+            "last_deworming_date",
+            "last_deworming_given",
+            "last_vaccination_brand",
+            "last_vaccination_date",
+            "last_vaccination_given",
+            "medication_given_prior_to_check_up",
+            "prognosis",
+            "recommendations",
+            "respiratory_rate",
+            "take_home_meds",
+            "tentative_diagnosis",
+            "treatment_given",
+            "weight"
+          ]
+        },
+        "EditParent": {
+          "type": "object",
+          "properties": {
+            "first_name": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "last_name": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "pets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "occupation": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "contact_number": {
+              "type": "string",
+              "maxLength": 11
+            }
+          },
+          "required": [
+            "contact_number",
+            "occupation",
+            "pets"
+          ]
+        },
+        "EditPetsSerializers": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "species": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "breed": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "color_or_markings": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "birthday": {
+              "type": "string",
+              "format": "date"
+            },
+            "sex": {
+              "$ref": "#/components/schemas/SexEnum"
+            }
+          },
+          "required": [
+            "birthday",
+            "breed",
+            "color_or_markings",
+            "name",
+            "sex",
+            "species"
+          ]
+        },
+        "Nested": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 5
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "species": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "breed": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "color_or_markings": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "birthday": {
+              "type": "string",
+              "format": "date"
+            },
+            "sex": {
+              "$ref": "#/components/schemas/SexEnum"
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            },
+            "modified": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            }
+          },
+          "required": [
+            "birthday",
+            "breed",
+            "color_or_markings",
+            "created",
+            "id",
+            "modified",
+            "name",
+            "sex",
+            "species"
+          ]
+        },
+        "Parent": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 5
+            },
+            "first_name": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "last_name": {
+              "type": "string",
+              "nullable": true,
+              "maxLength": 100
+            },
+            "occupation": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "contact_number": {
+              "type": "string",
+              "maxLength": 11
+            },
+            "number_of_pets": {
+              "type": "string",
+              "readOnly": true
+            },
+            "pets": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Nested"
+              },
+              "readOnly": true
+            }
+          },
+          "required": [
+            "contact_number",
+            "id",
+            "number_of_pets",
+            "occupation",
+            "pets"
+          ]
+        },
+        "Pets": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "maxLength": 5
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "breed": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          "required": [
+            "breed",
+            "id",
+            "name"
+          ]
+        },
+        "SexEnum": {
+          "enum": [
+            "F",
+            "M"
+          ],
+          "type": "string",
+          "description": "* `F` - Female\n* `M` - Male"
+        },
+        "TokenObtainPair": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "writeOnly": true
+            },
+            "password": {
+              "type": "string",
+              "writeOnly": true
+            },
+            "access": {
+              "type": "string",
+              "readOnly": true
+            },
+            "refresh": {
+              "type": "string",
+              "readOnly": true
+            }
+          },
+          "required": [
+            "access",
+            "password",
+            "refresh",
+            "username"
+          ]
+        }
+      },
+      "securitySchemes": {
+        "basicAuth": {
+          "type": "http",
+          "scheme": "basic"
+        },
+        "cookieAuth": {
+          "type": "apiKey",
+          "in": "cookie",
+          "name": "sessionid"
+        },
+        "jwtAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }
