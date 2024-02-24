@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'core',
     'corsheaders',
+    'drf_spectacular',
+    'drf_yasg'
     
 ]
 
@@ -168,3 +170,34 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "JWT [Bearer {JWT}]": {
+            "name": "Authorization",
+            "type": "apiKey",
+            "in": "header",
+        }
+    },
+    "USE_SESSION_AUTH": False,
+}
+
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+TEMPLATES = [
+{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [BASE_DIR / 'templates'],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+         ],
+    },
+ },
+]
