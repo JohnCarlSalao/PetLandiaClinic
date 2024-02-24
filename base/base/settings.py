@@ -201,3 +201,10 @@ TEMPLATES = [
     },
  },
 ]
+ALLOWED_HOSTS = ['petlandias.pythonanywhere.com']
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:9000",
+    "https://localhost:9000",]
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:9000",
+    "https://localhost:9000",]
