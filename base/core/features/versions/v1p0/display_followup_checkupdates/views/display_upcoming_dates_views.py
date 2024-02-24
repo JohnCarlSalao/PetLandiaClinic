@@ -6,10 +6,16 @@ from datetime import date
 from ..serializer.display_upcoming_dates_serializers import DisplayMedicalHistorySerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema
 
 class DisplayUpcomingFollowupCheckUpDatesViews(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    @extend_schema(
+                   description = 'To Display upcoming dates of followup checkup dates of pet.',
+                   summary = 'Display Upcoming Checkups'
+            
+    )
     def get(self, request):
         today = date.today()
         upcoming_checkups = MedicalHistory.objects.filter(followup_checkup_date__gte=today).order_by('followup_checkup_date')

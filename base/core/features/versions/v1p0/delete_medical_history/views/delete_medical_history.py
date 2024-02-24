@@ -5,16 +5,20 @@ from core.models import MedicalHistory
 from django.http import Http404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 class DeleteMedicalRecordsViews(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-
-    
     def get_medical_records(self, pk):
         try: 
             return MedicalHistory.objects.get (pk=pk)
         except MedicalHistory.DoesNotExist:
             raise Http404
+    @extend_schema(
+                   description = 'To delete medicalhistory of the pet',
+                   summary = 'Delete Medical History.'     
+            
+    )
     def delete(self, request,pk):
         
         errors = {}

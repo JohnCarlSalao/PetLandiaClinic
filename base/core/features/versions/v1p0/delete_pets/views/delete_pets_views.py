@@ -5,7 +5,7 @@ from core.models import Pets
 from django.http import Http404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from drf_spectacular.utils import extend_schema
 class DeletePetsViews(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -15,6 +15,11 @@ class DeletePetsViews(APIView):
             return Pets.objects.get (pk=pk)
         except Pets.DoesNotExist:
             raise Http404
+    @extend_schema(
+                   description = 'To delete pets',
+                   summary = 'Delete Pets.'
+            
+    )
     def delete(self, request,pk):
         
         errors = {}

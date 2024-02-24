@@ -7,10 +7,17 @@ from django.http import Http404
 import pytz
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema
 
 class DisplayPetViews(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
+    @extend_schema(request = DisplayPetSerializer,
+                   responses={ok: DisplayPetSerializer},
+                   description = 'To Display pets with owner',
+                   summary = 'Display all Pets.'
+            
+    )
     
     def get(self, request):
         pets = Pets.objects.all().order_by('-created')
@@ -39,11 +46,18 @@ class DisplayPetViews(APIView):
 class DisplayPetDetailViews(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
+    
     def get_pet(self, pk):
         try: 
             return Pets.objects.get(pk=pk)
         except Pets.DoesNotExist:
             return None
+    @extend_schema(request = DisplayPetSerializer,
+                   responses={ok: DisplayPetSerializer},
+                   description = 'To Display pets details',
+                   summary = 'Display Pets via id.'
+            
+    )
     def get(self, request, pk):
         pet = self.get_pet(pk)
         if pet is None:

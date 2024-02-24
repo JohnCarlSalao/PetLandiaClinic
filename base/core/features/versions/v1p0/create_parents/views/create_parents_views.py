@@ -6,9 +6,26 @@ from base.utilities.generate_uid import generate_uuid
 from ..serializers.create_parents_serializers import CreateParentSerializers
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema, OpenApiExample
 class CreateParentViews(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+   
+    @extend_schema(
+    request=CreateParentSerializers,
+    description='To Create Parents.',
+    summary='Create Parents.',
+    examples=[OpenApiExample(
+            name='Create Pet Example',
+            value={
+                'first_name': 'Ranxer ',
+                'last_name': 'Balondo',
+                'contact_number': '09292811165',
+                'occupation': 'Ceo',
+                 }
+,
+        )],
+    )
     def post(self, request):
         serializer = CreateParentSerializers(data=request.data)
         data = {}
@@ -37,7 +54,7 @@ class CreateParentViews(APIView):
                 message = "Record with the provided contact number already exists."
                 return Response({"message": message, "data": data, "status": status})
             
-            # Check if a parent with the same combination of first name, last name, and occupation already exists
+            
             existing_parent = Parent.objects.filter(
                 first_name=first_name,
                 last_name=last_name,

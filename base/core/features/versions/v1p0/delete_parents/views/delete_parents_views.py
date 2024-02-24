@@ -5,16 +5,24 @@ from core.models import Parent
 from django.http import Http404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema
 class DeleteParentsViews(APIView):
-    authentication_classes = [JWTAuthentication]
+    cation_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    
+    
     
     def get_parents(self, pk):
         try: 
             return Parent.objects.get (pk=pk)
         except Parent.DoesNotExist:
             raise Http404
+    @extend_schema(
+                   description = 'To delete parents',
+                   summary = 'Delete Parents.'    
+    )
     def delete(self, request,pk):
+        
         
         errors = {}
         data = {}

@@ -7,10 +7,18 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema
 class MedicalHistoryByPetIDView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    @extend_schema(request = DisplayMedicalHistoryPetSerializer,
+                   responses={ok: DisplayMedicalHistoryPetSerializer},
+                   description = 'To Display medicalhistory of the pet',
+                   summary = 'Display Pets with their medical history via id.'
+            
+    )
     def get(self, request, pet_id):
+       
         # Fetch the pet instance using the provided pet_id
         pet_instance = get_object_or_404(Pets, id=pet_id)
 
