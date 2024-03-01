@@ -28,7 +28,7 @@ class Parent(models.Model):
     contact_number =models.CharField(max_length =11)
     modified = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f"MedicalHistory for {self.first_name}"
+        return f"Parent {self.first_name}"
     
 class MedicalHistory(models.Model):
     pet = models.ForeignKey(Pets, on_delete=models.CASCADE)
