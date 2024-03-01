@@ -10,8 +10,8 @@ class ViewProfileView(APIView):
     authentication_classes = [JWTAuthentication]
     @extend_schema(request = ViewProfileSerializer,
                    responses={ok: ViewProfileSerializer},
-                   description = 'To Display pets with owner',
-                   summary = 'Display all Pets.'
+                   description = 'To Display user profile',
+                   summary = 'display user profile.'
             
     )
     def get(self, request):
