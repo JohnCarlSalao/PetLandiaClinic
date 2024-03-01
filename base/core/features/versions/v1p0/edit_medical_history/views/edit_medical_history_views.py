@@ -26,19 +26,19 @@ class EditMedicalRecordViews(APIView):
                    examples=[OpenApiExample(
             name='Create Medical History',
             value={
-  "pet": "987654",
+  "pet": "<pet_id>",
   "chief_complaint": "Nabarel sa paa",
   "medication_given_prior_to_check_up": "None",
   "last_vaccination_given": "Canine distemper",
-  "last_vaccination_date": "2023-11-20",
+  "last_vaccination_date": "2023/11/20",
   "last_vaccination_brand": "Merck",
   "last_deworming_brand": "WormGuard",
-  "last_deworming_date": "2024-01-15",
+  "last_deworming_date": "2024/01/15",
   "last_deworming_given": "Liquid",
   "is_transferred_from_other_clinic": False,
   "name_of_clinic": "",
   "case": "Cat found with a slight limp on one hind leg.",
-  "date_hospitalized": "2024-02-24",
+  "date_hospitalized": "2024/02/24",
   "diet": "Regular cat food",
   "weight": 6.5,
   "initial_temp": 38.7,
@@ -56,7 +56,7 @@ class EditMedicalRecordViews(APIView):
   "treatment_given": "Rest advised, no medication prescribed.",
   "take_home_meds": "",
   "recommendations": "Monitor for any worsening of symptoms.",
-   "followup_checkup_date": "2024-03-03"
+   "followup_checkup_date": "2024/03/03"
 }
 )],)
     def put(self, request, pk):

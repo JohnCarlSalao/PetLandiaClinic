@@ -23,15 +23,15 @@ class CreateMedicalHistoryViews(APIView):
   "chief_complaint": "Nabarel sa paa",
   "medication_given_prior_to_check_up": "Antibiotics",
   "last_vaccination_given": "Anti-rabies",
-  "last_vaccination_date": "2023-12-15",
+  "last_vaccination_date": "2023/12/15",
   "last_vaccination_brand": "Pfizer",
   "last_deworming_brand": "DewormerX",
-  "last_deworming_date": "2024-01-30",
+  "last_deworming_date": "2024/01/30",
   "last_deworming_given": "Tablet",
   "is_transferred_from_other_clinic": True,
   "name_of_clinic": "VetCare Clinic",
   "case": "Dog presented with limping on hind leg after running in the park.",
-  "date_hospitalized": "2024-02-24",
+  "date_hospitalized": "2024/02/24",
   "diet": "High protein diet",
   "weight": 18,
   "initial_temp": 39.2,
@@ -49,10 +49,9 @@ class CreateMedicalHistoryViews(APIView):
   "treatment_given": "Painkillers, anti-inflammatory drugs, and rest advised.",
   "take_home_meds": "Painkillers (Dosage: Twice daily after meals), Anti-inflammatory (Dosage: Once daily after meals)",
   "recommendations": "Strict rest for 1 week, avoid strenuous activity.",
-  "followup_checkup_date": "2024-03-10"
+  "followup_checkup_date": "2024/03/10"
 }
 
-,
         )],
                    
                 
