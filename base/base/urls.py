@@ -32,6 +32,7 @@ from core.features.versions.v1p0.display_pet_with_their_medical_history.views.di
 from core.features.versions.v1p0.display_followup_checkupdates.views.display_upcoming_dates_views import DisplayUpcomingFollowupCheckUpDatesViews
 from core.features.versions.v1p0.login.views.login_views import LoginView
 from core.features.versions.v1p0.landing_page.views.landing_page_views import LandingPageView
+from core.features.versions.v1p0.view_profile.views.view_profile_views import ViewProfileView 
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 
@@ -59,6 +60,7 @@ urlpatterns = [
     path ('v1p0/display/upcoming_checkups/', DisplayUpcomingFollowupCheckUpDatesViews.as_view(), name = 'display_upcoming_checkups'),
     path ('v1p0/login/',LoginView.as_view(), name ='login' ),
     path ('v1p0/landingpage/', LandingPageView.as_view(), name = 'landing_page'),
+    path('v1p0/view/profile/', ViewProfileView.as_view(), name = 'view_profile_view' ),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path("docs/",SpectacularSwaggerView.as_view(template_name="swagger-ui.html", url_name="schema"),name="swagger-ui"),
     path('redocs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
