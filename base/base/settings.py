@@ -204,7 +204,11 @@ TEMPLATES = [
 ALLOWED_HOSTS = ['petlandias.pythonanywhere.com', 'localhost']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:9000",
-    "https://localhost:9000",]
+    "https://localhost:9000",
+    "http://192.168.1.6:9000",
+    "https://192.168.1.6:9000"]
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:9000",
-    "https://localhost:9000",]
+    "https://localhost:9000",
+    "http://192.168.1.6:9000",
+    "https://192.168.1.6:9000"]
