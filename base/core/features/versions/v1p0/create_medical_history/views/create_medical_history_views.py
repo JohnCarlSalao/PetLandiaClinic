@@ -58,74 +58,43 @@ class CreateMedicalHistoryViews(APIView):
     
     )
     def post(self, request):
-        serializers = CreateMedicalHistorySerializer (data = request.data)
+        serializer = CreateMedicalHistorySerializer(data=request.data)
         data = {}
         errors = {}
         status = None
         message = None
 
-        if serializers.is_valid():
-            
-
-            
-            pet_data = request.data.get('pet')
-
-            if isinstance(pet_data, dict):
-                pet_id = pet_data.get('id')
-            else:
-                pet_id = pet_data
+        if serializer.is_valid():
+            pet_id = request.data.get('pet')
 
             try:
                 pet_instance = Pets.objects.get(id=pet_id)
             except Pets.DoesNotExist:
                 errors['pet'] = ['Invalid Pet ID']
                 status = bad_request
-                return Response({"status": status, "errors": errors})
+                return Response({"status": status, "errors": errors}, status)
 
-
-
-           
+            medical_history_data = serializer.validated_data
+            medical_history_data['pet'] = pet_instance
+            pet_details = {
+            'id': pet_instance.id,
+            'name': pet_instance.name,
+            'species': pet_instance.species,
+            'breed': pet_instance.breed,
+            'age': pet_instance.birthday,
+            'color_or_markings': pet_instance.color_or_markings
             
-
-            uid=generate_uuid ()
-            medical_history = MedicalHistory.objects.create(history_id = uid, 
-                                                          pet = pet_instance, 
-                                                          chief_complaint =request.data['chief_complaint'], 
-                                                          medication_given_prior_to_check_up=request.data['medication_given_prior_to_check_up'], 
-                                                          last_vaccination_given=request.data['last_vaccination_given'],
-                                                          last_vaccination_date=serializers.validated_data['last_vaccination_date'],
-                                                          last_vaccination_brand=request.data['last_vaccination_brand'], 
-                                                          last_deworming_brand = request.data['last_deworming_brand'],
-                                                          last_deworming_date= serializers.validated_data['last_deworming_date'],
-                                                          last_deworming_given=request.data['last_deworming_given'], 
-                                                          is_transferred_from_other_clinic= request.data['is_transferred_from_other_clinic'], 
-                                                          name_of_clinic=request.data['name_of_clinic'], 
-                                                          case =request.data['case'], 
-                                                          date_hospitalized=serializers.validated_data['date_hospitalized'], 
-                                                          diet =request.data['diet'], 
-                                                          weight=request.data['weight'], 
-                                                          initial_temp =request.data['initial_temp'],
-                                                          heart_rate=request.data['heart_rate'], 
-                                                          respiratory_rate = request.data['respiratory_rate'],
-                                                          abnormal_findings=request.data['abnormal_findings'],
-                                                          is_cbc = request.data['is_cbc'],
-                                                          is_skin_scrape =request.data['is_skin_scrape'],
-                                                          is_xray =request.data['is_xray'],
-                                                          is_dfs =request.data ['is_dfs'],
-                                                          is_urinalysis =request.data['is_urinalysis'],
-                                                          is_vaginal_smear=request.data['is_vaginal_smear'],
-                                                          tentative_diagnosis =request.data['tentative_diagnosis'],
-                                                          prognosis =request.data['prognosis'],
-                                                          treatment_given =request.data['treatment_given'],
-                                                          take_home_meds =request.data['take_home_meds'],
-                                                          recommendations =request.data['recommendations'],
-                                                          followup_checkup_date=serializers.validated_data['followup_checkup_date']
-                                                          )
+        }
             
-            medical_history_data = {
-            'history_id':medical_history.history_id,
-            'pet': PetsSerializer(pet_instance).data,
-            'pet_name': pet_instance.name,
+            uid = generate_uuid()
+            medical_history_data['history_id'] = uid
+            medical_history = MedicalHistory.objects.create(**medical_history_data)
+
+            
+            
+            data = {
+            'medical_history_id': medical_history.history_id,
+            'pet': pet_details,
             'chief_complaint': medical_history.chief_complaint,
             'medication_given_prior_to_check_up': medical_history.medication_given_prior_to_check_up,
             'last_vaccination_given': medical_history.last_vaccination_given,
@@ -155,15 +124,11 @@ class CreateMedicalHistoryViews(APIView):
             'treatment_given': medical_history.treatment_given,
             'take_home_meds': medical_history.take_home_meds,
             'recommendations': medical_history.recommendations,
-            'followup_checkup_date': medical_history.followup_checkup_date,
-            
+            'followup_checkup_date': medical_history.followup_checkup_date
         }
-            data =  medical_history_data
-            errors = serializers.errors
-            status = created 
-            message = 'Succesfully Created'
-            return Response({"message":message,"data": data,  "status": status, "errors": errors})
-        
-        errors = serializers.errors
-        status = bad_request
-        return Response({"status": status, "errors": errors})
+            status = created
+            message = 'Successfully Created'
+        else:
+            errors = serializer.errors
+            status = bad_request
+        return Response({"message": message, "data": data, "status": status, "errors": errors}, status)
