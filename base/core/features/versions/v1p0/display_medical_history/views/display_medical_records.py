@@ -20,7 +20,7 @@ class DisplayMedicalRecordsViews(APIView):
             
     )
     def get(self, request):
-        medical_history = MedicalHistory.objects.all()
+        medical_history = MedicalHistory.objects.all().order_by('-created')
         serializer = DisplayMedicalHistorySerializer(medical_history, many=True)
         
        

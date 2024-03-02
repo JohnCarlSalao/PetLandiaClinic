@@ -20,5 +20,5 @@ class DisplayMedicalHistorySerializer(serializers.ModelSerializer):
             'heart_rate', 'respiratory_rate', 'abnormal_findings', 'is_cbc', 'is_skin_scrape',
             'is_xray', 'is_dfs', 'is_urinalysis', 'is_vaginal_smear',
             'tentative_diagnosis', 'prognosis', 'treatment_given', 'take_home_meds',
-            'recommendations', 'followup_checkup_date'
+            'recommendations', 'followup_checkup_date', 'created','modified'
         ]

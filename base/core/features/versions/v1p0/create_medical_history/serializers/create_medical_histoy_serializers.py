@@ -11,10 +11,10 @@ class PetsSerializer(serializers.ModelSerializer):
 
 class CreateMedicalHistorySerializer(serializers.ModelSerializer):
     pet = serializers.CharField()
-    last_vaccination_date = CustomDateFormatField(validators =[validate_past])
-    last_deworming_date = CustomDateFormatField(validators =[validate_past])
-    date_hospitalized = CustomDateFormatField(validators =[validate_past])
-    followup_checkup_date = CustomDateFormatField(validators =[validate_future])
+    last_vaccination_date = CustomDateFormatField(validators =[validate_past], required=False)
+    last_deworming_date = CustomDateFormatField(validators =[validate_past], required=False)
+    date_hospitalized = CustomDateFormatField(validators =[validate_past], required=False)
+    followup_checkup_date = CustomDateFormatField(validators =[validate_future],required=False)
     class Meta:
         model = MedicalHistory
         fields = [

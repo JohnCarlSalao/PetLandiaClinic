@@ -63,7 +63,6 @@ class EditMedicalRecordViews(APIView):
         data = {}
         errors = {}
         status = None
-        message = None
         medical_history = self.get_parent(pk)
         data = request.data.copy()
         data.setdefault('chief_complaint', medical_history.chief_complaint)
