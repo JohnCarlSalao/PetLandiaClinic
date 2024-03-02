@@ -26,8 +26,8 @@ class LoginView(APIView):
 
         if not username:
             errors['username'] = 'Please enter a username.'
-            status = unauthorized
-            return Response({"message": "Username required.", "status": status, "errors": errors })
+            status = bad_request
+            return Response({"message": "Username required.", "status": status, "errors": errors },status)
 
         user = CustomUser.objects.filter(Q(username=username)).first()
 
@@ -49,7 +49,6 @@ class LoginView(APIView):
             }
             message =  'Successfully Login'
             status = ok
-            return Response({"message": message, "data": data, "status": status, "errors": errors })
-        
+            return Response({"message": message, "data": data, "status": status, "errors": errors },status)
         status = unauthorized
-        return Response(serializer.errors, status=status)
+        return Response({"message": message, "status": status, "errors": serializer.errors },status)
