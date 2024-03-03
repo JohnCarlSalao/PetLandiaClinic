@@ -104,10 +104,10 @@ class EditMedicalRecordViews(APIView):
             data = serializer.data
             status = ok
             errors = serializer.errors
-            return Response({"message": 'Successfully Updated', "data": data, "status": status})
+            return Response({"message": 'Successfully Updated', "data": data, "status": status},status)
         else:
             status = bad_request
             data = serializer.data
             errors = serializer.errors
-            return Response({"message": 'Error', "data": data, "status": status, "errors": errors})
+            return Response({"message": 'Error', "data": data, "status": status, "errors": errors},status)
 
