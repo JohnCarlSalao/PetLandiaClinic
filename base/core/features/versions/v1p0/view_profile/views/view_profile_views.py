@@ -21,13 +21,13 @@ class ViewProfileView(APIView):
         serialized_data = serializer.data
         message = 'Successful'
         serialized_data['role'] = "owner" if is_admin else "staff"
-        status_code = ok
+        status = ok
         errors = {}
         
         return Response({
             "message": message,
             "data": serialized_data,
-            "status": status_code,
+            "status": status,
             "errors": errors,
              
-        })
+        },status)
