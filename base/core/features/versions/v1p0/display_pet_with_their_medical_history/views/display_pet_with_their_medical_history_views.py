@@ -62,5 +62,5 @@ class MedicalHistoryByPetIDView(APIView):
         }
 
         # Return the response
-        return Response(response_data)
+        return Response(response_data,status)
 
