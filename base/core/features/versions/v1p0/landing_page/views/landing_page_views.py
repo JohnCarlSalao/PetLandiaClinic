@@ -51,4 +51,4 @@ class LandingPageView(APIView):
         status = ok 
         message = 'Successful'
         errors ={}
-        return Response({"message":message, "data": data, "status": status, "errors": errors})
+        return Response({"message":message, "data": data, "status": status, "errors": errors},status)

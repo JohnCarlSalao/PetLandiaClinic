@@ -26,7 +26,7 @@ class DisplayParentViews(APIView):
         message = 'Successfully retrieved'
         errors = {}
         status = ok 
-        return Response({"message": message, "data": data, "status": status, "errors": errors})
+        return Response({"message": message, "data": data, "status": status, "errors": errors},status)
     
 class DisplayParentDetailViews(APIView):
     authentication_classes = [JWTAuthentication]
@@ -53,4 +53,4 @@ class DisplayParentDetailViews(APIView):
         status = ok
         message = 'Results'
         errors = {}
-        return Response({"message": message, "data": data, "status": status, "errors": errors})
+        return Response({"message": message, "data": data, "status": status, "errors": errors},status)

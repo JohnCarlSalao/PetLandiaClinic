@@ -52,7 +52,7 @@ class CreateParentViews(APIView):
                 }
                 status = bad_request
                 message = "Record with the provided contact number already exists."
-                return Response({"message": message, "data": data, "status": status})
+                return Response({"message": message, "data": data, "status": status},status)
             
             
             existing_parent = Parent.objects.filter(
@@ -76,7 +76,7 @@ class CreateParentViews(APIView):
                 }
                 status = bad_request
                 message = "Record with the provided details already exists."
-                return Response({"message": message, "data": data, "status": status})
+                return Response({"message": message, "data": data, "status": status},status)
 
             uid = generate_uuid()
             parent = Parent.objects.create(
@@ -96,8 +96,8 @@ class CreateParentViews(APIView):
             data = parent_data
             status = created
             message = "Successfully Created"
-            return Response({"message": message, "data": data, "status": status, "errors": errors})
+            return Response({"message": message, "data": data, "status": status, "errors": errors},status)
         
         errors = serializer.errors
         status = bad_request
-        return Response({"message": message, "data": data, "status": status, "errors": errors})
+        return Response({"message": message, "data": data, "status": status, "errors": errors},status)
