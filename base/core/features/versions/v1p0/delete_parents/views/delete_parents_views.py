@@ -31,4 +31,4 @@ class DeleteParentsViews(APIView):
         parents.delete()
         message = 'Successfully Deleted'
         status = no_content        
-        return Response ({"Message": message, "data": data, "status": status, "errors": errors })
+        return Response ({"Message": message, "data": data, "status": status, "errors": errors }, status)
