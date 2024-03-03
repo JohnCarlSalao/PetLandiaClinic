@@ -18,8 +18,7 @@ class CreateParentViews(APIView):
     examples=[OpenApiExample(
             name='Create Pet Example',
             value={
-                'first_name': 'Ranxer ',
-                'last_name': 'Balondo',
+                'full_name': 'Ranxer Balondo ',
                 'contact_number': '09292811165',
                 'occupation': 'Ceo',
                  }
@@ -34,8 +33,7 @@ class CreateParentViews(APIView):
         message = None
 
         if serializer.is_valid():
-            first_name = request.data['first_name']
-            last_name = request.data['last_name']
+            full_name = request.data['full_name']
             occupation = request.data['occupation']
             contact_number = request.data['contact_number']
             
@@ -45,8 +43,7 @@ class CreateParentViews(APIView):
                 existing_parent_record = Parent.objects.get(contact_number=contact_number)
                 data = {
                     'id': existing_parent_record.id,
-                    'first_name': existing_parent_record.first_name,
-                    'last_name': existing_parent_record.last_name,
+                    'full_name': existing_parent_record.full_name,
                     'occupation': existing_parent_record.occupation,
                     'contact_number': existing_parent_record.contact_number
                 }
@@ -56,21 +53,18 @@ class CreateParentViews(APIView):
             
             
             existing_parent = Parent.objects.filter(
-                first_name=first_name,
-                last_name=last_name,
+                full_name= full_name,
                 occupation=occupation
             ).exists()
 
             if existing_parent:
                 existing_parent_record = Parent.objects.get(
-                    first_name=first_name,
-                    last_name=last_name,
+                    full_name=full_name,
                     occupation=occupation
                 )
                 data = {
                     'id': existing_parent_record.id,
-                    'first_name': existing_parent_record.first_name,
-                    'last_name': existing_parent_record.last_name,
+                    'full_name': existing_parent_record.full_name,
                     'occupation': existing_parent_record.occupation,
                     'contact_number': existing_parent_record.contact_number
                 }
@@ -81,15 +75,13 @@ class CreateParentViews(APIView):
             uid = generate_uuid()
             parent = Parent.objects.create(
                 id=uid,
-                first_name=first_name,
-                last_name=last_name,
+                full_name= full_name,
                 occupation=occupation,
                 contact_number=contact_number
             )
             parent_data = {
                 'id': parent.id,
-                'first_name': parent.first_name,
-                'last_name': parent.last_name,
+                'full_name': parent.full_name,
                 'occupation': parent.occupation,
                 'contact_number': parent.contact_number
             }

@@ -27,8 +27,8 @@ class EditParentViews(APIView):
                    examples=[OpenApiExample(
             name='Edit Parentt Example',
             value={
-                'first_name': 'Joshua',
-                'last_name': 'Penny',
+                
+                'full_name': 'Penny Wise',
                 'contact_number': '096788888',
                 'occupation':'M',
       })]
@@ -43,8 +43,7 @@ class EditParentViews(APIView):
         data = request.data.copy()
 
         
-        data.setdefault('first_name', parent.first_name)
-        data.setdefault('last_name', parent.last_name)
+        data.setdefault('full_name', parent.full_name)
         data.setdefault('contact_number', parent.contact_number)
         data.setdefault('occupation', parent.occupation)
 

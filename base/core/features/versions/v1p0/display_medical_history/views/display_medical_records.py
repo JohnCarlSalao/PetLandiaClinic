@@ -40,9 +40,9 @@ class DisplayMedicalRecordsViews(APIView):
         pet = Pets.objects.get(id=pet_id)
         owner = pet.parent_set.first()  
         owner_info = {
-            'first_name': owner.first_name if owner else None,
-            'last_name': owner.last_name if owner else None,
-            'contact_number': owner.contact_number if owner else None
+            'full_name': owner.full_name if owner else None,
+            'contact_number': owner.contact_number if owner else None,
+            'occupation': owner.occupation if owner else None
         }
         return owner_info
 
@@ -64,9 +64,9 @@ class DisplayMedicalRecordsIndivViews(APIView):
             if owner:
                 owner_info = {
                     'owner_id':owner.id, 
-                    'owner_first_name': owner.first_name,
-                    'owner_last_name': owner.last_name,
-                    'owner_contact_number':owner.contact_number
+                    'owner_full_name': owner.full_name,
+                    'owner_contact_number':owner.contact_number,
+                    'owner_occupation': owner.occupation
                     # Add more owner information if needed
                 }
         return owner_info

@@ -39,8 +39,7 @@ class MedicalHistoryByPetIDView(APIView):
         for parent in pet_instance.parent_set.all():
             parent_info = {
                 'parent_id': parent.id,
-                'first_name': parent.first_name,
-                'last_name': parent.last_name,
+                'full_name': parent.full_name,
                 'occupation': parent.occupation,
                 'contact_number': parent.contact_number,
             }
