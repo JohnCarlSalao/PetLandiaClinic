@@ -3,7 +3,7 @@ from core.models import Pets, Parent
 class ParentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Parent
-        fields = ['id', 'first_name', 'last_name', 'occupation', 'contact_number']
+        fields = ['id', 'full_name', 'occupation', 'contact_number']
 
 class DisplayPetSerializer(serializers.ModelSerializer):
     
