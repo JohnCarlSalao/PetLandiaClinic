@@ -5,4 +5,4 @@ class EditParentSerializer(serializers.ModelSerializer):
     pets = serializers.PrimaryKeyRelatedField(queryset=Pets.objects.all(), many=True)
     class Meta:
         model = Parent
-        fields = ['first_name', 'last_name', 'pets', 'occupation', 'contact_number']
+        fields = ['full_name', 'pets', 'occupation', 'contact_number']
