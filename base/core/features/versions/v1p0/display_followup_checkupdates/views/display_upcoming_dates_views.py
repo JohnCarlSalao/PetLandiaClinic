@@ -38,4 +38,4 @@ class DisplayUpcomingFollowupCheckUpDatesViews(APIView):
         message = 'Results'
         status = ok
         errors = {}
-        return Response({"message": message, "data": data, "status": status, "errors": errors})
+        return Response({"message": message, "data": data, "status": status, "errors": errors},status)
