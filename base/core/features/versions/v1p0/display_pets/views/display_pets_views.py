@@ -41,7 +41,7 @@ class DisplayPetViews(APIView):
          
         message = 'Success'
         status = ok
-        return Response({"message": message, "data": data, "status": status})
+        return Response({"message": message, "data": data, "status": status},status)
     
 class DisplayPetDetailViews(APIView):
     permission_classes = [IsAuthenticated]
@@ -65,7 +65,7 @@ class DisplayPetDetailViews(APIView):
             status = not_Found
             data = {}
             errors = {}
-            return Response({"message": message, "data": data, "status": status, "errors": errors})
+            return Response({"message": message, "data": data, "status": status, "errors": errors},status)
         parents_info = []
         for parent in pet.parent_set.all():
             parent_info = {
@@ -82,4 +82,4 @@ class DisplayPetDetailViews(APIView):
         message = 'Success'
         status = ok
         errors = {}
-        return Response({"message": message, "data": pet_data, "status": status, "errors": errors})
+        return Response({"message": message, "data": pet_data, "status": status, "errors": errors},status)
