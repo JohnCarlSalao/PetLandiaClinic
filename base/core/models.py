@@ -20,15 +20,14 @@ class Pets(models.Model):
 
 class Parent(models.Model):
     id = models.CharField(max_length=5, primary_key=True)
-    first_name = models.CharField(max_length=100, null=True)
-    last_name = models.CharField(max_length=100, null=True)
+    full_name = models.CharField(max_length=100, null=True)
     pets = models.ManyToManyField(Pets)
     created = models.DateTimeField(auto_now_add=True)
     occupation = models.CharField(max_length=100)
     contact_number =models.CharField(max_length =11)
     modified = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f"Parent {self.first_name}"
+        return f"Parent {self.name}"
     
 class MedicalHistory(models.Model):
     pet = models.ForeignKey(Pets, on_delete=models.CASCADE)
