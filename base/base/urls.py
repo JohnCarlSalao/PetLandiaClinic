@@ -67,10 +67,7 @@ urlpatterns = [
     path('v1p0/view/profile/', ViewProfileView.as_view(), name = 'view_profile_view' ),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path("docs/",SpectacularSwaggerView.as_view(template_name="swagger-ui.html", url_name="schema"),name="swagger-ui"),
-    path('redocs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-   
-    
-    
+    path('redocs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),   
 ]
 
 
