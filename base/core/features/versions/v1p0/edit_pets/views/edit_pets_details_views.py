@@ -53,5 +53,5 @@ class EditPetsDetailsViews(APIView):
             message = 'Error'
             status = bad_request
             errors = serializer.errors
-        return Response({"message": message, "data": data, "status": status, "errors": errors})
+        return Response({"message": message, "data": data, "status": status, "errors": errors},status)
     

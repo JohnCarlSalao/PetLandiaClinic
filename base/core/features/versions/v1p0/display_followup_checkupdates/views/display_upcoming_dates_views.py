@@ -29,7 +29,7 @@ class DisplayUpcomingFollowupCheckUpDatesViews(APIView):
                 'pet_id': pet.id,
                 'pet_name': pet.name,
                 'pet_breed':pet.breed,
-                'owner_name': f"{owner.first_name} {owner.last_name}" if owner else "Unknown Owner",
+                'owner_name': f"{owner.full_name}" if owner else "Unknown Owner",
                 'phone_number': owner.contact_number if owner else "Unknown number",
                 'followup_checkup_date': checkup.followup_checkup_date,
                 
@@ -38,4 +38,4 @@ class DisplayUpcomingFollowupCheckUpDatesViews(APIView):
         message = 'Results'
         status = ok
         errors = {}
-        return Response({"message": message, "data": data, "status": status, "errors": errors})
+        return Response({"message": message, "data": data, "status": status, "errors": errors},status)
