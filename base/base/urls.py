@@ -31,8 +31,10 @@ from core.features.versions.v1p0.edit_medical_history.views.edit_medical_history
 from core.features.versions.v1p0.display_pet_with_their_medical_history.views.display_pet_with_their_medical_history_views import MedicalHistoryByPetIDView
 from core.features.versions.v1p0.display_followup_checkupdates.views.display_upcoming_dates_views import DisplayUpcomingFollowupCheckUpDatesViews
 from core.features.versions.v1p0.login.views.login_views import LoginView
+from core.features.versions.v1p0.create_medical_history_with_pet_id_as_parameter.views.create_medical_history_views_with_id import CreateMedicalHistoryWithPetID
 from core.features.versions.v1p0.landing_page.views.landing_page_views import LandingPageView
 from core.features.versions.v1p0.view_profile.views.view_profile_views import ViewProfileView 
+from core.features.versions.v1p0.edit_medical_history_by_pet_id.views.edit_medical_history_by_pet_id_views import DisplayMedicalHistoryWithPetID
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 
@@ -57,7 +59,9 @@ urlpatterns = [
     path ('v1p0/delete_medical_history/<str:pk>/', DeleteMedicalRecordsViews.as_view(),  name = 'display_medical_history_indiv'),
     path ('v1p0/edit_medical_history/<str:pk>/', EditMedicalRecordViews.as_view(),  name = 'edit_medical_history_indiv'),
     path ('v1p0/display_medical_history/pet/<str:pet_id>/', MedicalHistoryByPetIDView.as_view(),  name = 'display_medical_history_pet'),
+    path ('v1p0/create/pet/medical_history/<str:pet_id>/', CreateMedicalHistoryWithPetID.as_view(),  name = 'create_medical_history_petid'),
     path ('v1p0/display/upcoming_checkups/', DisplayUpcomingFollowupCheckUpDatesViews.as_view(), name = 'display_upcoming_checkups'),
+    path('v1p0/display/pet/medicalhistory/<str:pet_id>/', DisplayMedicalHistoryWithPetID.as_view(),name = 'display_pet_id'),
     path ('v1p0/login/',LoginView.as_view(), name ='login' ),
     path ('v1p0/landingpage/', LandingPageView.as_view(), name = 'landing_page'),
     path('v1p0/view/profile/', ViewProfileView.as_view(), name = 'view_profile_view' ),
