@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from core.models import Parent, MedicalHistory, Pets
 from ..serializers.display_pet_with_their_medical_history_serializers import DisplayMedicalHistoryPetSerializer, PetsSerializer
 from base.utilities.constant import *
-from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated

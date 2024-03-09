@@ -7,7 +7,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
 class DeleteParentsViews(APIView):
-    cation_classes = [JWTAuthentication]
+    authencation_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     
     
