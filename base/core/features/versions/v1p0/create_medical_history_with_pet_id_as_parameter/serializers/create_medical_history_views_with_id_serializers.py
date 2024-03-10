@@ -9,8 +9,8 @@ class CreateMedicalHistoryWithIDSerializer(serializers.ModelSerializer):
     last_deworming_date = CustomDateFormatField(required=False, allow_blank=True, validators =[validate_past])
     date_hospitalized = CustomDateFormatField(required=False, allow_blank=True, validators =[validate_past])
     followup_checkup_date = CustomDateFormatField(required=False,allow_blank=True, validators =[validate_future])
-    initial_temp = serializers.FloatField(allow_blank=True,required = False)
-    weight = serializers.FloatField(allow_blank=True,required = False)
+    initial_temp = serializers.FloatField(allow_null=True,required = False)
+    weight = serializers.FloatField(allow_null=True,required = False)
     class Meta:
         model = MedicalHistory
         fields = [
