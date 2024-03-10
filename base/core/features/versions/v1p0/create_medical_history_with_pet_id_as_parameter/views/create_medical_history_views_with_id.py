@@ -6,9 +6,13 @@ from ..serializers.create_medical_history_views_with_id_serializers import Creat
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 class CreateMedicalHistoryWithPetID(APIView):
-    
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
     def post(self, request, pet_id):
         serializer = CreateMedicalHistoryWithIDSerializer(data=request.data)
