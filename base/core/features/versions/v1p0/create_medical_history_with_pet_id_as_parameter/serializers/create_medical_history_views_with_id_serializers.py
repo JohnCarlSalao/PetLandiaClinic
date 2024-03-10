@@ -5,10 +5,12 @@ from base.utilities.helpers import validate_past, validate_future
 
 class CreateMedicalHistoryWithIDSerializer(serializers.ModelSerializer):
     pet = serializers.CharField(read_only = True)
-    last_vaccination_date = CustomDateFormatField(validators =[validate_past], required=False)
-    last_deworming_date = CustomDateFormatField(validators =[validate_past], required=False)
-    date_hospitalized = CustomDateFormatField(validators =[validate_past], required=False)
-    followup_checkup_date = CustomDateFormatField(validators =[validate_future],required=False)
+    last_vaccination_date = CustomDateFormatField( required=False ,validators =[validate_past])
+    last_deworming_date = CustomDateFormatField(required=False, validators =[validate_past])
+    date_hospitalized = CustomDateFormatField(required=False, validators =[validate_past])
+    followup_checkup_date = CustomDateFormatField(required=False, validators =[validate_future])
+    initial_temp = serializers.FloatField(required = False)
+    weight = serializers.FloatField(required = False)
     class Meta:
         model = MedicalHistory
         fields = [
