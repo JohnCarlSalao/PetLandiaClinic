@@ -15,6 +15,12 @@ class CreateMedicalHistorySerializer(serializers.ModelSerializer):
     last_deworming_date = CustomDateFormatField(validators =[validate_past], required=False)
     date_hospitalized = CustomDateFormatField(validators =[validate_past], required=False)
     followup_checkup_date = CustomDateFormatField(validators =[validate_future],required=False)
+    def to_internal_value(self, data):
+        for field_name, field in self.fields.items():
+            if isinstance(field, CustomDateFormatField):
+                if field_name in data and data[field_name] == "":
+                    data[field_name] = None
+        return super().to_internal_value(data)
     class Meta:
         model = MedicalHistory
         fields = [
