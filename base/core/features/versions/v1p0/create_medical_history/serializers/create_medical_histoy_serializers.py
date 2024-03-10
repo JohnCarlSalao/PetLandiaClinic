@@ -16,10 +16,14 @@ class CreateMedicalHistorySerializer(serializers.ModelSerializer):
     date_hospitalized = CustomDateFormatField(validators =[validate_past], required=False)
     followup_checkup_date = CustomDateFormatField(validators =[validate_future],required=False)
     def to_internal_value(self, data):
-        for field_name, field in self.fields.items():
-            if isinstance(field, CustomDateFormatField):
-                if field_name in data and data[field_name] == "":
-                    data[field_name] = None
+        if "last_vaccination_date" in data and data["last_vaccination_date"] == "":
+            data["last_vaccination_date"] = None
+        if "last_deworming_date" in data and data["last_deworming_date"] == "":
+            data["last_deworming_date"] = None
+        if "date_hospitalized" in data and data ["date_hospitalized"] == "":
+            data["date_hospitalized"] = None 
+        if "followup_checkup_date" in data and data ["followup_checkup_date"]:
+            data["followup_checkup_date"] = None       
         return super().to_internal_value(data)
     class Meta:
         model = MedicalHistory
