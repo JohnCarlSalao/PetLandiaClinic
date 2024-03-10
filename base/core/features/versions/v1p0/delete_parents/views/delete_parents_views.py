@@ -9,9 +9,6 @@ from drf_spectacular.utils import extend_schema
 class DeleteParentsViews(APIView):
     authencation_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    
-    
-    
     def get_parents(self, pk):
         try: 
             return Parent.objects.get (pk=pk)
@@ -22,8 +19,6 @@ class DeleteParentsViews(APIView):
                    summary = 'Delete Parents.'    
     )
     def delete(self, request,pk):
-        
-        
         errors = {}
         data = {}
         status = None
