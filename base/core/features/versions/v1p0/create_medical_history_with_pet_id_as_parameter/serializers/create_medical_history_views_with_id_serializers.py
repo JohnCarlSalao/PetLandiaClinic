@@ -3,11 +3,6 @@ from core.models import Parent, Pets, MedicalHistory
 from base.utilities.formatter import CustomDateFormatField
 from base.utilities.helpers import validate_past, validate_future
 
-class NullableDateField(serializers.DateField):
-    def to_internal_value(self, value):
-        if value == "":
-            return None
-        return super().to_internal_value(value)
 
 class NullableFloatField(serializers.FloatField):
     def to_internal_value(self, value):
