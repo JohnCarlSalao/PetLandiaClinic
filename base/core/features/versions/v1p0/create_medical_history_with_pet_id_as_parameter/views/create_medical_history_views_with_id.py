@@ -4,10 +4,11 @@ from base.utilities.constant import *
 from base.utilities.generate_uid import generate_uuid
 from ..serializers.create_medical_history_views_with_id_serializers import CreateMedicalHistoryWithIDSerializer
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 
 class CreateMedicalHistoryWithPetID(APIView):
@@ -73,3 +74,25 @@ class CreateMedicalHistoryWithPetID(APIView):
             return Response({"message": "Successfully Created", "data": data, "status": status.HTTP_201_CREATED}, status=status.HTTP_201_CREATED)
         else:
             return Response({"message": "Validation Error", "errors": serializer.errors, "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
+
+# class CreateMedicalHistoryWithPetID(generics.CreateAPIView):
+#     queryset = MedicalHistory.objects.all()
+#     serializer_class = CreateMedicalHistoryWithIDSerializer
+
+#     def post(self, request, pet_id):
+#         # Get the pet instance or return 404 if not found
+#         pet_instance = get_object_or_404(Pets, id=pet_id)
+
+#         serializer = self.get_serializer(data=request.data)
+#         request.data['history_id'] = generate_uuid()
+
+#         # Initialize serializer with request data
+#         serializer = self.serializer_class(data=request.data)
+
+#         # Validate serializer data
+#         if serializer.is_valid():
+#             serializer.save(pet=pet_instance)
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

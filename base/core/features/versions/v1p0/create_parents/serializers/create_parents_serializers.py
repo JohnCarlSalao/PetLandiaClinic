@@ -20,4 +20,4 @@ from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 class CreateParentSerializers(serializers.ModelSerializer):
     class Meta:
         model = Parent
-        fields = ['full_name', 'occupation', 'contact_number']
+        fields = ['full_name','address', 'occupation', 'contact_number']

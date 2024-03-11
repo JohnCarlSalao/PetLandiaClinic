@@ -8,12 +8,22 @@ class NullableFloatField(serializers.FloatField):
         if value == "":
             return None
         return super().to_internal_value(value)
+class NullableDateField(serializers.DateField):
+    def to_internal_value(self, data):
+        if data == "":
+            return None
+        return super().to_internal_value(data)
+    
 class CreateMedicalHistoryWithIDSerializer(serializers.ModelSerializer):
-    pet = serializers.CharField(read_only=True)
-    last_vaccination_date = CustomDateFormatField(required=False, allow_null = True,  validators=[validate_past])
-    last_deworming_date = CustomDateFormatField(required=False, allow_null = True, validators=[validate_past])
-    date_hospitalized = CustomDateFormatField(required=False,allow_null = True,  validators=[validate_past])
-    followup_checkup_date = CustomDateFormatField(required=False, allow_null = True, validators=[validate_future])
+    pet = serializers.StringRelatedField(read_only=True)
+    # last_vaccination_date = CustomDateFormatField(required=False, allow_null = True,  validators=[validate_past])
+    # last_deworming_date = CustomDateFormatField(required=False, allow_null = True, validators=[validate_past])
+    # date_hospitalized = CustomDateFormatField(required=False,allow_null = True,  validators=[validate_past])
+    # followup_checkup_date = CustomDateFormatField(required=False, allow_null = True, validators=[validate_future])
+    last_vaccination_date = NullableDateField(input_formats=['%Y/%m/%d'] ,  required = False)
+    followup_checkup_date = NullableDateField(input_formats=['%Y/%m/%d'],   required = False)
+    last_deworming_date = NullableDateField(input_formats=['%Y/%m/%d'] , required = False )
+    date_hospitalized = NullableDateField(input_formats=['%Y/%m/%d'],  required = False)
     initial_temp = NullableFloatField(required=False,)
     weight = NullableFloatField(required=False, )
     

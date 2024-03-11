@@ -36,6 +36,7 @@ class CreateParentViews(APIView):
             full_name = request.data['full_name']
             occupation = request.data['occupation']
             contact_number = request.data['contact_number']
+            address = request.data['address']
             
             # Check if a parent with the same contact number already exists
             existing_number = Parent.objects.filter(contact_number=contact_number).exists()
@@ -45,7 +46,8 @@ class CreateParentViews(APIView):
                     'id': existing_parent_record.id,
                     'full_name': existing_parent_record.full_name,
                     'occupation': existing_parent_record.occupation,
-                    'contact_number': existing_parent_record.contact_number
+                    'contact_number': existing_parent_record.contact_number,
+                    'address': address
                 }
                 status = bad_request
                 message = "Record with the provided contact number already exists."
@@ -77,13 +79,15 @@ class CreateParentViews(APIView):
                 id=uid,
                 full_name= full_name,
                 occupation=occupation,
-                contact_number=contact_number
+                contact_number=contact_number,
+                address = address
             )
             parent_data = {
                 'id': parent.id,
                 'full_name': parent.full_name,
                 'occupation': parent.occupation,
-                'contact_number': parent.contact_number
+                'contact_number': parent.contact_number,
+                'address':address
             }
             data = parent_data
             status = created

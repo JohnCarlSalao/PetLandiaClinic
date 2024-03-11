@@ -9,7 +9,7 @@ class ParentSerializer(serializers.ModelSerializer):
     number_of_pets = serializers.SerializerMethodField()
     class Meta:
         model = Parent
-        fields = ['id', 'full_name', 'occupation', 'contact_number','number_of_pets', 'pets', ]
+        fields = ['id', 'full_name', 'address','occupation', 'contact_number','number_of_pets', 'pets', ]
         depth = 1  # Specify the depth to serialize related objects
         
     def get_number_of_pets(self, obj):
