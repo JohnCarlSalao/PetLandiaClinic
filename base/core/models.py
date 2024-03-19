@@ -16,6 +16,8 @@ class Pets(models.Model):
     sex = models.CharField(max_length=1, choices=sex_choices)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f"{self.name}"
     
 
 class Parent(models.Model):
@@ -28,11 +30,12 @@ class Parent(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f"Parent {self.name}"
+        return f"Parent {self.full_name}"
     
 class MedicalHistory(models.Model):
     history_id = models.CharField(max_length = 5, primary_key = True)
-    pet = models.ForeignKey(Pets, on_delete=models.CASCADE)
+    pet = models.ForeignKey(Pets, on_delete=models.CASCADE, related_name = "medical_history_of_pet")
+    parent = models.ForeignKey(Parent, on_delete=models.CASCADE, related_name = "medical_history_of_parent")
     chief_complaint = models.TextField(blank = True,null = True)
     medication_given_prior_to_check_up = models.TextField(null= True, blank = True)
     last_vaccination_given = models.CharField(max_length=100, null = True ,blank = True)
@@ -67,7 +70,7 @@ class MedicalHistory(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"MedicalHistory for {self.pet_id}"
+        return f"MedicalHistory for {self.pet_name}"
     
 class CustomUser(AbstractUser):
     name = models.CharField(max_length =100)
