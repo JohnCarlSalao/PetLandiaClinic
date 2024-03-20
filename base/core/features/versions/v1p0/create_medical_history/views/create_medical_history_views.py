@@ -63,6 +63,13 @@ class CreateMedicalHistoryViews(APIView):
         errors = {}
         status = None
         message = None
+        parent_full_name = request.data.get('parent', None)
+        if not parent_full_name:
+                return Response({"status": status.HTTP_400_BAD_REQUEST, "errors": {"parent": ["Parent full name is required"]}}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            parent_instance = Parent.objects.get(full_name=parent_full_name)
+        except Parent.DoesNotExist:
+            return Response({"status": status.HTTP_400_BAD_REQUEST, "errors": {"parent_full_name": ["Parent with the provided full name does not exist"]}}, status=status.HTTP_400_BAD_REQUEST)
 
         if serializer.is_valid():
             pet_id = request.data.get('pet')
@@ -95,6 +102,7 @@ class CreateMedicalHistoryViews(APIView):
             data = {
             'medical_history_id': medical_history.history_id,
             'pet': pet_details,
+            'parent': parent_instance.full_name,
             'chief_complaint': medical_history.chief_complaint,
             'medication_given_prior_to_check_up': medical_history.medication_given_prior_to_check_up,
             'last_vaccination_given': medical_history.last_vaccination_given,
@@ -129,6 +137,7 @@ class CreateMedicalHistoryViews(APIView):
             status = created
             message = 'Successfully Created'
         else:
+            message = 'Please fill the required requirements'
             errors = serializer.errors
             status = bad_request
         return Response({"message": message, "data": data, "status": status, "errors": errors}, status)

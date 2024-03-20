@@ -27,6 +27,7 @@ class EditMedicalRecordViews(APIView):
             name='Create Medical History',
             value={
   "pet": "<pet_id>",
+  "parent": "parent full name",
   "chief_complaint": "Nabarel sa paa",
   "medication_given_prior_to_check_up": "None",
   "last_vaccination_given": "Canine distemper",
