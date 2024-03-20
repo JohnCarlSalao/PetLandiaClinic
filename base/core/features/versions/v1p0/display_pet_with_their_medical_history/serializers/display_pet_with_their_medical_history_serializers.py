@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from core.models import Parent, Pets, MedicalHistory
 
+class ParentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Parent 
+        exclude = ['created', 'modified']
+
 class PetsSerializer(serializers.ModelSerializer):
     birthday = serializers.DateField(format="%m-%d-%Y")
     created = serializers.DateTimeField(format="%m-%d-%Y %H:%M:%S.%fZ")
@@ -12,6 +17,7 @@ class PetsSerializer(serializers.ModelSerializer):
 class DisplayMedicalHistoryPetSerializer(serializers.ModelSerializer):
     pet = PetsSerializer()
 
+    parent = ParentSerializer(read_only = True)
     class Meta:
         model = MedicalHistory
         fields = ['history_id',
