@@ -2,7 +2,7 @@ from rest_framework import serializers
 from core.models import Parent, Pets, MedicalHistory
 from base.utilities.formatter import CustomDateFormatField
 from base.utilities.helpers import validate_past, validate_future
-
+from core.features.versions.v1p0.create_medical_history_with_pet_id_as_parameter.serializers.create_medical_history_views_with_id_serializers import NullableFloatField, NullableDateField
 
 class PetsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,24 +11,21 @@ class PetsSerializer(serializers.ModelSerializer):
 
 class CreateMedicalHistorySerializer(serializers.ModelSerializer):
     pet = serializers.CharField()
-    last_vaccination_date = CustomDateFormatField(validators =[validate_past], required=False)
-    last_deworming_date = CustomDateFormatField(validators =[validate_past], required=False)
-    date_hospitalized = CustomDateFormatField(validators =[validate_past], required=False)
-    followup_checkup_date = CustomDateFormatField(validators =[validate_future],required=False)
-    def to_internal_value(self, data):
-        if "last_vaccination_date" in data and data["last_vaccination_date"] == "":
-            data["last_vaccination_date"] = None
-        if "last_deworming_date" in data and data["last_deworming_date"] == "":
-            data["last_deworming_date"] = None
-        if "date_hospitalized" in data and data ["date_hospitalized"] == "":
-            data["date_hospitalized"] = None 
-        if "followup_checkup_date" in data and data ["followup_checkup_date"]:
-            data["followup_checkup_date"] = None       
-        return super().to_internal_value(data)
+    parent = serializers.SlugRelatedField(slug_field='full_name', queryset = Parent.objects.all())
+    # last_vaccination_date = CustomDateFormatField(required=False, allow_null = True,  validators=[validate_past])
+    # last_deworming_date = CustomDateFormatField(required=False, allow_null = True, validators=[validate_past])
+    # date_hospitalized = CustomDateFormatField(required=False,allow_null = True,  validators=[validate_past])
+    # followup_checkup_date = CustomDateFormatField(required=False, allow_null = True, validators=[validate_future])
+    last_vaccination_date = NullableDateField(input_formats=['%Y/%m/%d'] ,  required = False)
+    followup_checkup_date = NullableDateField(input_formats=['%Y/%m/%d'],   required = False)
+    last_deworming_date = NullableDateField(input_formats=['%Y/%m/%d'] , required = False )
+    date_hospitalized = NullableDateField(input_formats=['%Y/%m/%d'],  required = False)
+    initial_temp = NullableFloatField(required=False,)
+    weight = NullableFloatField(required=False, )
     class Meta:
         model = MedicalHistory
         fields = [
-            'pet', 'chief_complaint', 'medication_given_prior_to_check_up',
+            'pet','parent', 'chief_complaint', 'medication_given_prior_to_check_up',
             'last_vaccination_given', 'last_vaccination_date', 'last_vaccination_brand',
             'last_deworming_brand', 'last_deworming_date', 'last_deworming_given',
             'is_transferred_from_other_clinic', 'name_of_clinic', 'case',
