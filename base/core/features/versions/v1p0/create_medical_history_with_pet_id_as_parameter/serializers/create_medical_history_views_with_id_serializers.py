@@ -15,7 +15,9 @@ class NullableDateField(serializers.DateField):
         return super().to_internal_value(data)
     
 class CreateMedicalHistoryWithIDSerializer(serializers.ModelSerializer):
+
     pet = serializers.StringRelatedField(read_only=True)
+    parent = serializers.SlugRelatedField(slug_field='full_name', queryset = Parent.objects.all())
     # last_vaccination_date = CustomDateFormatField(required=False, allow_null = True,  validators=[validate_past])
     # last_deworming_date = CustomDateFormatField(required=False, allow_null = True, validators=[validate_past])
     # date_hospitalized = CustomDateFormatField(required=False,allow_null = True,  validators=[validate_past])
@@ -30,7 +32,7 @@ class CreateMedicalHistoryWithIDSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicalHistory
         fields = [
-            'pet', 'chief_complaint', 'medication_given_prior_to_check_up',
+            'pet', 'parent', 'chief_complaint', 'medication_given_prior_to_check_up',
             'last_vaccination_given', 'last_vaccination_date', 'last_vaccination_brand',
             'last_deworming_brand', 'last_deworming_date', 'last_deworming_given',
             'is_transferred_from_other_clinic', 'name_of_clinic', 'case',

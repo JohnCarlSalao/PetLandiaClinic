@@ -22,7 +22,7 @@ class Pets(models.Model):
 
 class Parent(models.Model):
     id = models.CharField(max_length=5, primary_key=True)
-    full_name = models.CharField(max_length=100, null=True, blank =True)
+    full_name = models.CharField(max_length=100, null=True, blank =True, unique = True)
     pets = models.ManyToManyField(Pets)
     occupation = models.CharField(max_length=100,  null=True, blank =True)
     contact_number =models.CharField(max_length =11)
@@ -70,7 +70,7 @@ class MedicalHistory(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"MedicalHistory for {self.pet_name}"
+        return f"MedicalHistory for {self.pet.name}"
     
 class CustomUser(AbstractUser):
     name = models.CharField(max_length =100)
