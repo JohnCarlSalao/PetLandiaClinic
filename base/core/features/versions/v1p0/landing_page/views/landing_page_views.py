@@ -28,13 +28,11 @@ class LandingPageView(APIView):
         total_medical_records = MedicalHistory.objects.count()
         total_medical_records_for_the_month = MedicalHistory.objects.filter(followup_checkup_date__month=current_month).count()
         total_medical_records_for_the_year = MedicalHistory.objects.filter(followup_checkup_date__year=current_year).count()
-        
-        
         today_or_upcoming_checkups = MedicalHistory.objects.filter(followup_checkup_date__gte=today).count()        
         yesterday_checkups = MedicalHistory.objects.filter(followup_checkup_date=yesterday).count()
         today_checkups = MedicalHistory.objects.filter(followup_checkup_date=today).count()
-        parents_with_pets_followup_today = Parent.objects.filter(
-        pets__medicalhistory__followup_checkup_date=today_date).distinct().count()
+        # today Checkups need followup to be fix soon
+        
        
         data = {
             'total_pets': total_pets,
@@ -43,7 +41,6 @@ class LandingPageView(APIView):
             'today_or_upcoming_checkups': today_or_upcoming_checkups,
             'yesterday_checkups': yesterday_checkups,
             'today_checkups': today_checkups,
-            'total_clients_today': parents_with_pets_followup_today,
             'total_medical_records_for_the_month':total_medical_records_for_the_month,
             'total_medical_records_for_the_year':  total_medical_records_for_the_year,
         }
