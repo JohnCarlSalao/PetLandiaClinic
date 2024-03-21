@@ -1,14 +1,17 @@
 from rest_framework import serializers
 from core.models import MedicalHistory
 from core.features.versions.v1p0.display_pets.serializers.display_serializers import DisplayPetSerializer
-from base.utilities.formatter import CustomDateFormatField
+from base.utilities.formatter import CustomDateFormatField, NullableFloatField
 from core.models import Parent
+from core.features.versions.v1p0.create_medical_history_with_pet_id_as_parameter.serializers.create_medical_history_views_with_id_serializers import NullableDateField
 from base.utilities.helpers import validate_future, validate_past
 class EditMedicalRecordSerializers(serializers.ModelSerializer):
-    last_vaccination_date = CustomDateFormatField(validators =[validate_past])
-    last_deworming_date = CustomDateFormatField(validators =[validate_past])
-    date_hospitalized = CustomDateFormatField(validators =[validate_past])
-    followup_checkup_date = CustomDateFormatField(validators =[validate_future])
+    last_vaccination_date = NullableDateField(input_formats=['%Y/%m/%d'] ,  required = False)
+    followup_checkup_date = NullableDateField(input_formats=['%Y/%m/%d'],   required = False)
+    last_deworming_date = NullableDateField(input_formats=['%Y/%m/%d'] , required = False )
+    date_hospitalized = NullableDateField(input_formats=['%Y/%m/%d'],  required = False)
+    initial_temp = NullableFloatField(required=False,)
+    weight = NullableFloatField(required=False, )
     pet = DisplayPetSerializer(read_only = True)
     parent = serializers.SlugRelatedField(slug_field='full_name', queryset = Parent.objects.all())
     class Meta:

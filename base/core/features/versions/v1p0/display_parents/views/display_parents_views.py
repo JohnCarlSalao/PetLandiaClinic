@@ -8,6 +8,7 @@ import pytz
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
+from rest_framework import generics
 class DisplayParentViews(APIView):
     
     authentication_classes = [JWTAuthentication]
@@ -54,3 +55,12 @@ class DisplayParentDetailViews(APIView):
         message = 'Results'
         errors = {}
         return Response({"message": message, "data": data, "status": status, "errors": errors},status)
+    
+class DisplayParentV2Views(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = Parent.objects.all()
+    serializer_class = DisplayParentSerializer
+
+

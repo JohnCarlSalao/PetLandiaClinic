@@ -7,6 +7,7 @@ from django.http import Http404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from rest_framework import generics
 class EditMedicalRecordViews(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -111,4 +112,13 @@ class EditMedicalRecordViews(APIView):
             data = serializer.data
             errors = serializer.errors
             return Response({"message": 'Error', "data": data, "status": status, "errors": errors},status)
+        
+    class EditMedicalRecordsViewsV2(generics.RetrieveUpdateAPIView):
+        serializer_class = EditMedicalRecordSerializers
+        queryset = MedicalHistory.objects.all()
+
+        def get_serializer_class(self):
+            if self.request.method == "PUT":
+                return EditMedicalRecordSerializers
+            return super().get_serializer_class()
 
