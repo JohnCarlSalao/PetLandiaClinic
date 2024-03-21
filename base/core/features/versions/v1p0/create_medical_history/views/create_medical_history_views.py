@@ -7,7 +7,7 @@ from ..serializers.create_medical_histoy_serializers import CreateMedicalHistory
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema, OpenApiExample
-
+from rest_framework.status import HTTP_400_BAD_REQUEST
 
 class CreateMedicalHistoryViews(APIView):
     permission_classes = [IsAuthenticated]
@@ -65,11 +65,11 @@ class CreateMedicalHistoryViews(APIView):
         message = None
         parent_full_name = request.data.get('parent', None)
         if not parent_full_name:
-                return Response({"status": status.HTTP_400_BAD_REQUEST, "errors": {"parent": ["Parent full name is required"]}}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"status": HTTP_400_BAD_REQUEST, "errors": {"parent": ["Parent full name is required"]}}, HTTP_400_BAD_REQUEST)
         try:
             parent_instance = Parent.objects.get(full_name=parent_full_name)
         except Parent.DoesNotExist:
-            return Response({"status": status.HTTP_400_BAD_REQUEST, "errors": {"parent_full_name": ["Parent with the provided full name does not exist"]}}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"status": HTTP_400_BAD_REQUEST, "errors": {"parent_full_name": ["Parent with the provided full name does not exist"]}}, HTTP_400_BAD_REQUEST)
 
         if serializer.is_valid():
             pet_id = request.data.get('pet')
