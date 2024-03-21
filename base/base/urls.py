@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from core.features.versions.v1p0.create_parents.views.create_parents_views import CreateParentViews
 from core.features.versions.v1p0.create_pets.views.create_pets_views import CreatePetsViews
-from core.features.versions.v1p0.display_parents.views.display_parents_views import DisplayParentViews, DisplayParentDetailViews
+from core.features.versions.v1p0.display_parents.views.display_parents_views import DisplayParentViews, DisplayParentDetailViews, DisplayParentV2Views
 from core.features.versions.v1p0.display_pets.views.display_pets_views import DisplayPetViews, DisplayPetDetailViews
 from core.features.versions.v1p0.edit_parents.views.edit_parent_details_views import EditParentViews
 from core.features.versions.v1p0.edit_pets.views.edit_pets_details_views import EditPetsDetailsViews
@@ -47,6 +47,7 @@ urlpatterns = [
     path('v1p0/create_parents/', CreateParentViews.as_view(), name ='create_pets_view'),
     path('v1p0/display_parent/', DisplayParentViews.as_view(), name = 'display_parent'),
     path ('v1p0/display_parent/<str:pk>/', DisplayParentDetailViews.as_view(), name = 'display_parent_by_id'),
+    path('v2p0/display_parent/',DisplayParentV2Views.as_view(), name = 'display_parent_clean_version' ),
     path ('v1p0/display_pet/<str:pk>/', DisplayPetDetailViews.as_view(), name = 'display_pet_by_id'),
     path ('v1p0/display_pet/', DisplayPetViews.as_view(), name = 'display_pet'),
     path ('v1p0/edit_parent/<str:pk>/', EditParentViews.as_view(), name = 'edit_parent_view'),
@@ -62,6 +63,7 @@ urlpatterns = [
     path ('v1p0/create/pet/medical_history/<str:pet_id>/', CreateMedicalHistoryWithPetID.as_view(),  name = 'create_medical_history_petid'),
     path ('v1p0/display/upcoming_checkups/', DisplayUpcomingFollowupCheckUpDatesViews.as_view(), name = 'display_upcoming_checkups'),
     path('v1p0/display/pet/medicalhistory/<str:pet_id>/', DisplayMedicalHistoryWithPetID.as_view(),name = 'display_pet_id'),
+   
     path ('v1p0/login/',LoginView.as_view(), name ='login' ),
     path ('v1p0/landingpage/', LandingPageView.as_view(), name = 'landing_page'),
     path('v1p0/view/profile/', ViewProfileView.as_view(), name = 'view_profile_view' ),
