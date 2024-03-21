@@ -13,7 +13,7 @@ class EditMedicalRecordSerializers(serializers.ModelSerializer):
     initial_temp = NullableFloatField(required=False,)
     weight = NullableFloatField(required=False, )
     pet = DisplayPetSerializer(read_only = True)
-    parent = serializers.SlugRelatedField(slug_field='full_name', queryset = Parent.objects.all())
+    parent = serializers.StringRelatedField(read_only = True)
     class Meta:
         model =MedicalHistory
         fields = ['chief_complaint', 'medication_given_prior_to_check_up',

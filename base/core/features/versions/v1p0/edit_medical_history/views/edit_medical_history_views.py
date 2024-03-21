@@ -113,12 +113,12 @@ class EditMedicalRecordViews(APIView):
             errors = serializer.errors
             return Response({"message": 'Error', "data": data, "status": status, "errors": errors},status)
         
-    class EditMedicalRecordsViewsV2(generics.RetrieveUpdateAPIView):
-        serializer_class = EditMedicalRecordSerializers
-        queryset = MedicalHistory.objects.all()
+class EditMedicalRecordsViewsV2(generics.RetrieveUpdateAPIView):
+    serializer_class = EditMedicalRecordSerializers
+    queryset = MedicalHistory.objects.all()
 
-        def get_serializer_class(self):
-            if self.request.method == "PUT":
-                return EditMedicalRecordSerializers
-            return super().get_serializer_class()
+    def get_serializer_class(self):
+        if self.request.method == "PUT":
+            return EditMedicalRecordSerializers
+        return super().get_serializer_class()
 
