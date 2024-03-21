@@ -8,13 +8,18 @@ from rest_framework import status, generics
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
+from drf_spectacular.utils import extend_schema, OpenApiExample
 
 
 class CreateMedicalHistoryWithPetID(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
-
+    @extend_schema(request = CreateMedicalHistoryWithIDSerializer,
+                   responses={ok: CreateMedicalHistoryWithIDSerializer},
+                   description = 'To Display medicalhistory of the pet',
+                   summary = 'Display Pets with their medical history via id.'
+            
+    )
     def post(self, request, pet_id):
         serializer = CreateMedicalHistoryWithIDSerializer(data=request.data)
         
