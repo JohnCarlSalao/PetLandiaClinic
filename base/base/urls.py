@@ -27,7 +27,7 @@ from core.features.versions.v1p0.delete_pets.views.delete_pets_views import Dele
 from core.features.versions.v1p0.create_medical_history.views.create_medical_history_views import CreateMedicalHistoryViews
 from core.features.versions.v1p0.display_medical_history.views.display_medical_records import DisplayMedicalRecordsIndivViews, DisplayMedicalRecordsViews
 from core.features.versions.v1p0.delete_medical_history.views.delete_medical_history import DeleteMedicalRecordsViews
-from core.features.versions.v1p0.edit_medical_history.views.edit_medical_history_views import EditMedicalRecordViews
+from core.features.versions.v1p0.edit_medical_history.views.edit_medical_history_views import EditMedicalRecordViews,EditMedicalRecordsViewsV2
 from core.features.versions.v1p0.display_pet_with_their_medical_history.views.display_pet_with_their_medical_history_views import MedicalHistoryByPetIDView
 from core.features.versions.v1p0.display_followup_checkupdates.views.display_upcoming_dates_views import DisplayUpcomingFollowupCheckUpDatesViews
 from core.features.versions.v1p0.login.views.login_views import LoginView
@@ -63,7 +63,7 @@ urlpatterns = [
     path ('v1p0/create/pet/medical_history/<str:pet_id>/', CreateMedicalHistoryWithPetID.as_view(),  name = 'create_medical_history_petid'),
     path ('v1p0/display/upcoming_checkups/', DisplayUpcomingFollowupCheckUpDatesViews.as_view(), name = 'display_upcoming_checkups'),
     path('v1p0/display/pet/medicalhistory/<str:pet_id>/', DisplayMedicalHistoryWithPetID.as_view(),name = 'display_pet_id'),
-   
+    path('v1p0/edit_medical_history_v2/<str:pk>/', EditMedicalRecordsViewsV2.as_view(), name = 'edit_medical_records_v2'),
     path ('v1p0/login/',LoginView.as_view(), name ='login' ),
     path ('v1p0/landingpage/', LandingPageView.as_view(), name = 'landing_page'),
     path('v1p0/view/profile/', ViewProfileView.as_view(), name = 'view_profile_view' ),

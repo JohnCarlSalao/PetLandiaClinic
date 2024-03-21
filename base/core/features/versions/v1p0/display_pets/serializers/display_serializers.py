@@ -7,7 +7,7 @@ class ParentSerializer(serializers.ModelSerializer):
 
 class DisplayPetSerializer(serializers.ModelSerializer):
     
-    birthday = serializers.DateField(format="%m-%d-%Y")
+    birthday = serializers.DateField(format="%Y/%m/%d")
     created = serializers.DateTimeField(format="%m-%d-%Y %H:%M:%S%f")
 
     class Meta:
